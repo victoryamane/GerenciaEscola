@@ -11,7 +11,6 @@ public class Main {
 //		aluno.listarTodos();
 		//aluno.listaAniversariantes(9);
 		new AlunoView();
-
 	}
 
 }
