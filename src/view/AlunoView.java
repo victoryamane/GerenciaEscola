@@ -143,7 +143,7 @@ public class AlunoView {
 				}				
 				
 				// Verifica mes de fevereiro
-				if ((mes == 2) && (dia > 29)) {
+				if ((mes == 2) && (dia > 28)) {
 					validacao = false;
 				}
 				// Verifica data
