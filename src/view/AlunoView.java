@@ -147,7 +147,7 @@ public class AlunoView {
 					validacao = false;
 				}
 				// Verifica data
-				if ((dia > 32) || (dia < 1) || (mes < 1) || (mes > 12) || (ano > anoAtual) || (ano < 1800)) {
+				if ((dia > 31) || (dia < 1) || (mes < 1) || (mes > 12) || (ano > anoAtual) || (ano < 1800)) {
 					validacao = false;
 				}
 
