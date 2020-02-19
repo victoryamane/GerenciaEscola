@@ -1,5 +1,12 @@
 package model;
 
+/**
+ * Classe modelo para funcionario
+ * @author vyamane
+ *@since 18/02/2020
+ *@version 0.1
+ */
+
 public class Funcionario {
 	private String nome;
 	private String cpf;

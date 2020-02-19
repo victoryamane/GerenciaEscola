@@ -1,3 +1,10 @@
+/**
+ * Classe main
+ * @author vyamane
+ *@since 18/02/2020
+ *@version 0.1
+ */
+
 import controller.AlunoController;
 import view.AlunoView;
 //import controller.ProfessorController;

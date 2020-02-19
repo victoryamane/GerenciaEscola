@@ -1,7 +1,7 @@
 package view;
 
 /**
- * Classe tela cadastra aluno
+ * Classe tela para cadastrar aluno
  * @author vyamane
  *@since 18/02/2020
  *@version 0.1
@@ -9,8 +9,6 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,22 +16,21 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import controller.AlunoController;
-import model.Aluno;
 import model.Data;
 
 public class AlunoView {
 	// Declarar os componentes da tela
-	private static JFrame janela;
-	private static JButton botaoSalvar;
-	private static JButton botaoCancelar;
-	private static JTextField campoMatricula;
-	private static JTextField campoNome;
-	private static JTextField campoDataNascimento;
-	private static JTextField campoSexo;
-	private static JLabel lblSexo;
-	private static JLabel lblMatricula;
-	private static JLabel lblNome;
-	private static JLabel lblDataNascimento;
+	private JFrame janela;
+	private JButton botaoSalvar;
+	private JButton botaoCancelar;
+	private JTextField campoMatricula;
+	private JTextField campoNome;
+	private JTextField campoDataNascimento;
+	private JTextField campoSexo;
+	private JLabel lblSexo;
+	private JLabel lblMatricula;
+	private JLabel lblNome;
+	private JLabel lblDataNascimento;
 
 	public AlunoView() {
 		iniciaGui();
@@ -55,6 +52,7 @@ public class AlunoView {
 		// Cria o botão Cancelar
 		botaoCancelar = new JButton("Cancelar");
 		botaoCancelar.setBounds(260, 135, 100, 20);
+		botaoCancelar.addActionListener(new CancelaListener());
 
 		// Definir o componente JLabel de rotulo
 		lblMatricula = new JLabel();
@@ -97,37 +95,96 @@ public class AlunoView {
 
 	// Salva o aluno
 	public class SalvarListener implements ActionListener {
-
-		@Override
 		public void actionPerformed(ActionEvent arg0) {
+
 			AlunoController aluno = new AlunoController();
-			String[] data = campoDataNascimento.getText().split("/");
+			boolean validacao = true;
+
 			try {
+
+				// Tratando espaços vazios
+				String espacoVazioMatricula = campoMatricula.getText();
+				String espacoVazioNome = campoNome.getText();
+				String espacoVazioSexo = campoSexo.getText();
+
+				espacoVazioMatricula = espacoVazioMatricula.replace(" ", "");
+				espacoVazioNome = espacoVazioNome.replace(" ", "");
+				espacoVazioSexo = espacoVazioSexo.replace(" ", "");
+				
+				int contCampoMatricula = espacoVazioMatricula.length();
+				int contCampoNome = espacoVazioNome.length();
+				int contCampoSexo = espacoVazioSexo.length();
+
 				// Tratando data
+				String[] data = campoDataNascimento.getText().split("/");
 				int dia = Integer.parseInt(data[0]);
 				int mes = Integer.parseInt(data[1]);
 				int ano = Integer.parseInt(data[2]);
 				Data dataNascimento = new Data(dia, mes, ano);
+				int anoAtual = Integer.parseInt(
+						new java.text.SimpleDateFormat("yyyy").format(new java.util.Date(System.currentTimeMillis())));
+
 				// Tratando char
-				String converte = campoSexo.getText();
+				String converte = campoSexo.getText().toUpperCase();
 				char converteSexo = converte.charAt(0);
 
-				if (converteSexo == 'M' || converteSexo == 'F') {
+				//Verifica espaços vazios
+				
+				if (contCampoMatricula != 0) {
+					validacao = false;
+				}
+				
+				if (contCampoNome != 0) {
+					validacao = false;
+				}
+				
+				if (contCampoSexo == 1) {
+					validacao = true;
+				}				
+				
+				// Verifica mes de fevereiro
+				if ((mes == 2) && (dia > 29)) {
+					validacao = false;
+				}
+				// Verifica data
+				if ((dia > 32) || (dia < 1) || (mes < 1) || (mes > 12) || (ano > anoAtual) || (ano < 1800)) {
+					validacao = false;
+				}
 
+				// Verifica sexo
+				if (converteSexo != 'M' && converteSexo != 'F') {
+					validacao = false;
+				}
+
+				// Validação
+				if (validacao) {
 					aluno.inserirAluno(campoMatricula.getText(), campoNome.getText(), dataNascimento, converteSexo);
-					JOptionPane.showMessageDialog (null, "Cadastro efetuado com sucesso!");
-					
+					JOptionPane.showMessageDialog(null, "Aluno cadastrado com sucesso");
+				} else {
+					JOptionPane.showMessageDialog(null, "Favor verificar se todos os campos foram preechidos corretamente", "", 0);
 				}
 
 			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Favor digitar numeros para datas");
+				JOptionPane.showMessageDialog(null, "Favor digitar uma data valida", "", 0);
 			} catch (java.lang.ArrayIndexOutOfBoundsException e) {
-				JOptionPane.showMessageDialog(null, "Favor digitar a data no formato dd/mm/aaaa");
+				JOptionPane.showMessageDialog(null, "Favor digitar a data no formato dd/mm/aaaa", "", 0);
 			} catch (java.lang.StringIndexOutOfBoundsException e) {
-				JOptionPane.showMessageDialog(null, "Favor digitar o sexo M ou F");
+				JOptionPane.showMessageDialog(null, "Favor digitar o sexo M ou F", "", 0);
 			}
+
+			// Limpa campos
+			campoMatricula.setText("");
+			campoNome.setText("");
+			campoDataNascimento.setText("");
+			campoSexo.setText("");
 		}
 
 	}
 
+	// Função do botão cancelar
+	public class CancelaListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			janela.setVisible(false);
+		}
+	}
 }

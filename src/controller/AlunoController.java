@@ -1,5 +1,12 @@
 package controller;
 
+/**
+ * Classe para cadastrar aluno
+ * @author vyamane
+ *@since 18/02/2020
+ *@version 0.1
+ */
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -97,8 +104,6 @@ public class AlunoController {
 
 			gravador.close();
 			arquivoOutput.close();
-
-			System.out.println("Gravação efetuada com sucesso!");
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

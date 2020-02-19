@@ -1,2 +1,0 @@
-
-Matricula: 00001;Nome: Victor;Data de nascimento: 22/9/1991;Sexo: M

@@ -2,9 +2,10 @@ package model;
 
 /**
  * Classe teste data utilizando get e set
+ * 
  * @author vyamane
- *@since 17/02/2020
- *@version 0.1
+ * @since 17/02/2020
+ * @version 0.1
  */
 
 public class Data {
@@ -15,8 +16,6 @@ public class Data {
 
 	// construtor sem parametro
 	public Data() {
-		System.out.println("data criada");
-
 	}
 
 	// construtor com parametro
@@ -50,10 +49,9 @@ public class Data {
 	public void setAno(int ano) {
 		this.ano = ano;
 	}
-	
 
-public String toString() {
-	// TODO Auto-generated method stub
-	return dia + "/" + mes + "/" + ano;
-}
+	public String toString() {
+		// TODO Auto-generated method stub
+		return dia + "/" + mes + "/" + ano;
+	}
 }
