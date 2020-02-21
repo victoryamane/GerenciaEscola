@@ -7,6 +7,11 @@ package model;
  *@version 0.1
  */
 
-public class Secretaria extends Funcionario {
+public class Secretaria  {
+	private int ramal;
+	
+	
+	
+	
 	
 }

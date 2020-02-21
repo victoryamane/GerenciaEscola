@@ -7,6 +7,7 @@ package model;
  *@version 0.1
  */
 
-public class Faxineira extends Funcionario {
-	
+public class Faxineira {
+	private String turno;
+
 }

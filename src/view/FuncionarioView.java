@@ -1,41 +1,26 @@
 package view;
 
 import java.awt.GridLayout;
-
-/**
- * Classe tela para cadastrar aluno
- * @author vyamane
- *@since 18/02/2020
- *@version 0.1
- */
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import controller.AlunoController;
-import model.Data;
-
-public class AlunoView {
-	// Variaveis
+public class FuncionarioView {
+	// Declarar os componentes da tela
 	private JFrame janela;
 	private JButton botaoSalvar;
 	private JButton botaoCancelar;
-	private JTextField campoMatricula;
 	private JTextField campoDataNascimento;
 	private JTextField campoNome;
+	private JTextField campoSalario;
 	private JTextField campoLogradouro;
 	private JTextField campoNumero;
 	private JTextField campoComplemento;
@@ -44,8 +29,8 @@ public class AlunoView {
 	private JTextField campoCpf;
 	private JTextField campoRg;
 	private JTextField campoTelefone;
-	private JLabel lblMatricula;
 	private JLabel lblNome;
+	private JLabel lblSalario;
 	private JLabel lblDataNascimento;
 	private JLabel lblLogradouro;
 	private JLabel lblNumero;
@@ -55,21 +40,18 @@ public class AlunoView {
 	private JLabel lblCpf;
 	private JLabel lblRg;
 	private JLabel lblTelefone;
+	private JLabel lblCargo;
 	private JLabel lblCidade;
 	private JLabel lblEstado;
-	private JRadioButton rbtSexoM;
-	private JRadioButton rbtSexoF;
-	private ButtonGroup grpRadio;
+	private JComboBox cboxCargo;
+	private String[] cargo = { "1 - Professor", "2 - Secretaria", "3 - Faxineira" };
 	private JComboBox cboxCidade;
 	private String[] cidade = { "" };
 	private JComboBox cboxEstado;
 	private String[] estado = { "" };
-	private JLabel jtfSenha;
-	private JPasswordField jpwSenha;
 	private JPanel painelDaJanela;
-	private JPanel painelDadosAluno;
+	private JPanel painelDadosFuncionario;
 	private JPanel painelLogradouro;
-
 
 	public void iniciaGui() {
 
@@ -77,9 +59,10 @@ public class AlunoView {
 		janela = new JFrame();
 		botaoSalvar = new JButton("Salvar");
 		botaoCancelar = new JButton("Cancelar");
-		lblMatricula = new JLabel();
 		lblNome = new JLabel();
+		lblSalario = new JLabel();
 		lblDataNascimento = new JLabel();
+		lblCargo = new JLabel();
 		lblCidade = new JLabel();
 		lblEstado = new JLabel();
 		lblLogradouro = new JLabel();
@@ -90,8 +73,8 @@ public class AlunoView {
 		lblCpf = new JLabel();
 		lblRg = new JLabel();
 		lblTelefone = new JLabel();
-		campoMatricula = new JTextField();
 		campoNome = new JTextField();
+		campoSalario = new JTextField();
 		campoDataNascimento = new JTextField();
 		campoLogradouro = new JTextField();
 		campoNumero = new JTextField();
@@ -101,38 +84,28 @@ public class AlunoView {
 		campoCpf = new JTextField();
 		campoRg = new JTextField();
 		campoTelefone = new JTextField();
-		rbtSexoM = new JRadioButton();
-		rbtSexoF = new JRadioButton();
+		cboxCargo = new JComboBox(cargo);
 		cboxCidade = new JComboBox(cidade);
 		cboxEstado = new JComboBox(estado);
-		jtfSenha = new JLabel();
-		jpwSenha = new JPasswordField();
 		painelDaJanela = (JPanel) janela.getContentPane();
-		painelDadosAluno = new JPanel();
+		painelDadosFuncionario = new JPanel();
 		painelLogradouro = new JPanel();
-
-		// Cria o objeto de grupo de botoões
-		grpRadio = new ButtonGroup();
-
-		// Adiciona os botões ao grupo
-		grpRadio.add(rbtSexoM);
-		grpRadio.add(rbtSexoF);
 
 		// Cria o botão Salvar
 		botaoSalvar.setBounds(170, 430, 100, 40);
-		botaoSalvar.addActionListener(new SalvarListener());
+		// botaoSalvar.addActionListener(new SalvarListener());
 
 		// Cria o botão Cancelar
 		botaoCancelar.setBounds(280, 430, 100, 40);
 		botaoCancelar.addActionListener(new CancelaListener());
 
-		// Configuração da label matricula
-		lblMatricula.setText("Matricula");
-		lblMatricula.setBounds(30, 30, 95, 20);
-
 		// Configuração da label nome
 		lblNome.setText("Nome");
-		lblNome.setBounds(200, 30, 95, 20);
+		lblNome.setBounds(30, 30, 95, 20);
+		
+		// Configuração da label cargo
+		lblCargo.setText("Cargo");
+		lblCargo.setBounds(385, 30, 95, 20);
 
 		// Configuração da label data nascimento
 		lblDataNascimento.setText("Dt. nascimento");
@@ -141,7 +114,7 @@ public class AlunoView {
 			campoDataNascimento = new javax.swing.JFormattedTextField(dt);
 		} catch (Exception e) {
 		}
-		lblDataNascimento.setBounds(30, 80, 95, 20);
+		lblDataNascimento.setBounds(200, 130, 95, 20);
 
 		// Configuração da label cpf
 		lblCpf.setText("CPF");
@@ -170,17 +143,14 @@ public class AlunoView {
 		}
 		lblTelefone.setBounds(30, 130, 95, 20);
 
-		// Configuração do botão sexo M
-		rbtSexoM.setText("Masculino");
-		rbtSexoM.setBounds(200, 150, 90, 24);
-
-		// Configuração do botão sexo F
-		rbtSexoF.setText("Feminino");
-		rbtSexoF.setBounds(290, 150, 90, 24);
-
-		// Configuração da label senha
-		jtfSenha.setText("Senha");
-		jtfSenha.setBounds(385, 130, 300, 20);
+		// Configuração da label salario
+		lblSalario.setText("Salario");
+		try {
+			javax.swing.text.MaskFormatter salrio = new javax.swing.text.MaskFormatter("#########");
+			campoSalario = new javax.swing.JFormattedTextField(salrio);
+		} catch (Exception e) {
+		}
+		lblSalario.setBounds(30, 80, 95, 20);
 
 		// Configuração da label logradouro
 		lblLogradouro.setText("Logradouro");
@@ -215,21 +185,23 @@ public class AlunoView {
 		lblEstado.setText("Estado");
 		lblEstado.setBounds(385, 330, 95, 20);
 
-		// Configurar a campo senha
-		jpwSenha.setBounds(385, 150, 165, 20);
-
-		// Cria um campo para digitar texto
-		campoMatricula.setBounds(30, 50, 150, 20);
-		campoNome.setBounds(200, 50, 350, 20);
-		campoDataNascimento.setBounds(30, 100, 150, 20);
+		// Cria um campo para digitar texto		
+		campoNome.setBounds(30, 50, 330, 20);
+		campoDataNascimento.setBounds(200, 150, 165, 20);
 		campoCpf.setBounds(200, 100, 165, 20);
 		campoRg.setBounds(385, 100, 165, 20);
 		campoTelefone.setBounds(30, 150, 150, 20);
+		campoSalario.setBounds(30, 100, 150, 20); 
 		campoLogradouro.setBounds(30, 250, 520, 20);
 		campoNumero.setBounds(30, 300, 150, 20);
 		campoComplemento.setBounds(200, 300, 165, 20);
 		campoBairro.setBounds(385, 300, 165, 20);
 		campoCep.setBounds(30, 350, 150, 20);
+
+		// Configurações do combo box cargo
+		cboxCargo.setSelectedIndex(-1);
+		cboxCargo.setBounds(385, 50, 165, 19);
+		cboxCargo.setMaximumRowCount(10);
 
 		// Configurações do combo box cidade
 		cboxCidade.setSelectedIndex(-1);
@@ -241,11 +213,10 @@ public class AlunoView {
 		cboxEstado.setBounds(385, 350, 165, 19);
 		cboxEstado.setMaximumRowCount(10);
 
-		// Configuração do painel do aluno
-		painelDadosAluno.setBounds(5, 5, 555, 200);
-		painelDadosAluno.setLayout(new GridLayout(1, 0, 0, 0));
-		painelDadosAluno.setBorder(new TitledBorder("Dados do Aluno"));
-
+		// Configuração do painel do funcionario
+		painelDadosFuncionario.setBounds(5, 5, 555, 200);
+		painelDadosFuncionario.setLayout(new GridLayout(1, 0, 0, 0));
+		painelDadosFuncionario.setBorder(new TitledBorder("Dados do Funcionario"));
 
 		// Configuração do painel do Logradouro
 		painelLogradouro.setBounds(5, 210, 555, 200);
@@ -257,8 +228,8 @@ public class AlunoView {
 		painelDaJanela.setBorder(BorderFactory.createLoweredBevelBorder());
 		painelDaJanela.add(botaoSalvar);
 		painelDaJanela.add(botaoCancelar);
-		painelDaJanela.add(campoMatricula);
-		painelDaJanela.add(campoNome);
+		painelDaJanela.add(campoNome);		
+		painelDaJanela.add(campoSalario);
 		painelDaJanela.add(campoDataNascimento);
 		painelDaJanela.add(campoLogradouro);
 		painelDaJanela.add(campoNumero);
@@ -268,12 +239,12 @@ public class AlunoView {
 		painelDaJanela.add(campoCpf);
 		painelDaJanela.add(campoRg);
 		painelDaJanela.add(campoTelefone);
+		painelDaJanela.add(cboxCargo);
 		painelDaJanela.add(cboxEstado);
 		painelDaJanela.add(cboxCidade);
-		painelDaJanela.add(rbtSexoM);
-		painelDaJanela.add(rbtSexoF);
-		painelDaJanela.add(lblMatricula);
 		painelDaJanela.add(lblNome);
+		painelDaJanela.add(lblCargo);
+		painelDaJanela.add(lblSalario);
 		painelDaJanela.add(lblDataNascimento);
 		painelDaJanela.add(lblLogradouro);
 		painelDaJanela.add(lblNumero);
@@ -285,91 +256,16 @@ public class AlunoView {
 		painelDaJanela.add(lblTelefone);
 		painelDaJanela.add(lblCidade);
 		painelDaJanela.add(lblEstado);
-		painelDaJanela.add(jtfSenha);
-		painelDaJanela.add(jpwSenha);
-		painelDaJanela.add(painelDadosAluno);
+		painelDaJanela.add(painelDadosFuncionario);
 		painelDaJanela.add(painelLogradouro);
 
 		// Cria a janela
-		janela.setTitle("Cadastro de Aluno");
+		janela.setTitle("Cadastro de Funcionario");
 		janela.setSize(580, 530);
 		janela.setLayout(null);
 		janela.setLocationRelativeTo(null);
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		janela.setVisible(true);
-
-	}
-
-	// Salva o aluno
-	public class SalvarListener implements ActionListener {
-		public void actionPerformed(ActionEvent arg0) {
-
-			AlunoController aluno = new AlunoController();
-			boolean validacao = true;
-
-			try {
-
-				// Tratando espaços vazios
-				String espacoVazioMatricula = campoMatricula.getText();
-				String espacoVazioNome = campoNome.getText();
-
-				espacoVazioMatricula = espacoVazioMatricula.replace(" ", "");
-				espacoVazioNome = espacoVazioNome.replace(" ", "");
-
-				int contCampoMatricula = espacoVazioMatricula.length();
-				int contCampoNome = espacoVazioNome.length();
-				;
-
-				// Tratando data
-				String[] data = campoDataNascimento.getText().split("/");
-				int dia = Integer.parseInt(data[0]);
-				int mes = Integer.parseInt(data[1]);
-				int ano = Integer.parseInt(data[2]);
-				Data dataNascimento = new Data(dia, mes, ano);
-				int anoAtual = Integer.parseInt(
-						new java.text.SimpleDateFormat("yyyy").format(new java.util.Date(System.currentTimeMillis())));
-
-				// Verifica espaços vazios
-
-				if (contCampoMatricula != 0) {
-					validacao = false;
-				}
-
-				if (contCampoNome != 0) {
-					validacao = false;
-				}
-
-				// Verifica mes de fevereiro
-				if ((mes == 2) && (dia > 28)) {
-					validacao = false;
-				}
-				// Verifica data
-				if ((dia > 31) || (dia < 1) || (mes < 1) || (mes > 12) || (ano > anoAtual) || (ano < 1800)) {
-					validacao = false;
-				}
-
-//				// Validação
-//				if (validacao) {
-//					aluno.inserirAluno(campoMatricula.getText(), campoNome.getText(), dataNascimento);
-//					JOptionPane.showMessageDialog(null, "Aluno cadastrado com sucesso");
-//				} else {
-//					JOptionPane.showMessageDialog(null, "Favor verificar se todos os campos foram preechidos corretamente", "", 0);
-//				}
-
-			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Favor verificar se todos os campos foram preechidos corretamente",
-						"", 0);
-			} catch (java.lang.ArrayIndexOutOfBoundsException e) {
-				JOptionPane.showMessageDialog(null, "Favor digitar a data no formato dd/mm/aaaa", "", 0);
-			} catch (java.lang.StringIndexOutOfBoundsException e) {
-				JOptionPane.showMessageDialog(null, "Favor digitar o sexo M ou F", "", 0);
-			}
-
-			// Limpa campos
-			campoMatricula.setText("");
-			campoNome.setText("");
-			campoDataNascimento.setText("");
-		}
 
 	}
 

@@ -7,29 +7,13 @@ package model;
  *@version 0.1
  */
 
-public class Professor extends Funcionario {
+public class Professor {
 	private String materia;
 
-	public Professor() {
-		System.out.println("Professor criado!");
 
-	}
-
-	public Professor(String materia) {
-		this.materia = materia;
-	}
-
-	public String getMateria() {
-		return materia;
-	}
-
-	public void setMateria(String materia) {
-		this.materia = materia;
-	}
-	
-	public void exibe() {
-		super.exibe();
-		System.out.println("Materia do professor: " + materia);
-	}
+//	public void exibe() {
+//		super.exibe();
+//		System.out.println("Materia do professor: " + materia);
+//	}
 
 }

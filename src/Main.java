@@ -8,6 +8,7 @@
 import controller.AlunoController;
 import view.AlunoView;
 //import controller.ProfessorController;
+import view.MenuView;
 
 public class Main {
 	public static void main(String[] args) {
@@ -17,7 +18,7 @@ public class Main {
 //		aluno.inserirAluno();
 //		aluno.listarTodos();
 		//aluno.listaAniversariantes(9);
-		new AlunoView();
+		new MenuView().iniciaGui();;
 	}
 
 }
