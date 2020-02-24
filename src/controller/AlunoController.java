@@ -52,21 +52,21 @@ public class AlunoController {
 		endereco.setLogradouro(logradouro);
 		endereco.setNumero(n);
 
-		Aluno al = new Aluno();
-		al.setCpf(cpf);
-		al.setDataNascimento(data);
-		al.setEndereco(endereco);
-		al.setMatricula(matricula);
-		al.setNome(nome);
-		al.setRg(rg);
-		al.setSenha(senha);
-		al.setSexo(sexoTrans);
-		al.setTelefone(telefone);
+		Aluno aluno = new Aluno();
+		aluno.setCpf(cpf);
+		aluno.setDataNascimento(data);
+		aluno.setEndereco(endereco);
+		aluno.setMatricula(matricula);
+		aluno.setNome(nome);
+		aluno.setRg(rg);
+		aluno.setSenha(senha);
+		aluno.setSexo(sexoTrans);
+		aluno.setTelefone(telefone);
 
-		inserirAluno(al);
+		inserirAluno(aluno);
 	}
 
-	// receber informaçoes do aluno e salvar no arquivo
+	// Recebe informações de cadastro do aluno e salva no arquivo txt
 	public void inserirAluno(Aluno aluno) {
 
 		File arquivo = new File("aluno.txt");

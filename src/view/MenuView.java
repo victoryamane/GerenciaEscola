@@ -68,6 +68,16 @@ public class MenuView {
 			}
 		});
 		
+		// Configurando ação do item de menu 3
+		itemMenu3.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				new EstadoView().iniciaGui();
+
+			}
+		});
+		
 		// Configurando ação do item de menu 4
 		itemMenu4.addActionListener(new ActionListener() {
 

@@ -18,7 +18,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -26,7 +25,6 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import controller.AlunoController;
-import model.Data;
 
 public class AlunoView {
 	// Variaveis
@@ -70,7 +68,6 @@ public class AlunoView {
 	private JPanel painelDadosAluno;
 	private JPanel painelLogradouro;
 
-
 	public void iniciaGui() {
 
 		// instacia
@@ -103,8 +100,8 @@ public class AlunoView {
 		campoTelefone = new JTextField();
 		rbtSexoM = new JRadioButton();
 		rbtSexoF = new JRadioButton();
-		cboxCidade = new JComboBox(cidade);
-		cboxEstado = new JComboBox(estado);
+		cboxCidade = new JComboBox();
+		cboxEstado = new JComboBox();
 		jtfSenha = new JLabel();
 		jpwSenha = new JPasswordField();
 		painelDaJanela = (JPanel) janela.getContentPane();
@@ -246,7 +243,6 @@ public class AlunoView {
 		painelDadosAluno.setLayout(new GridLayout(1, 0, 0, 0));
 		painelDadosAluno.setBorder(new TitledBorder("Dados do Aluno"));
 
-
 		// Configuração do painel do Logradouro
 		painelLogradouro.setBounds(5, 210, 555, 200);
 		painelLogradouro.setLayout(new GridLayout(1, 0, 0, 0));
@@ -297,86 +293,61 @@ public class AlunoView {
 		janela.setLocationRelativeTo(null);
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		janela.setVisible(true);
-
 	}
 
 	// Salva o aluno
 	public class SalvarListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-
-			AlunoController aluno = new AlunoController();
-			boolean validacao = true;
-
-			try {
-
-				// Tratando espaços vazios
-				String espacoVazioMatricula = campoMatricula.getText();
-				String espacoVazioNome = campoNome.getText();
-
-				espacoVazioMatricula = espacoVazioMatricula.replace(" ", "");
-				espacoVazioNome = espacoVazioNome.replace(" ", "");
-
-				int contCampoMatricula = espacoVazioMatricula.length();
-				int contCampoNome = espacoVazioNome.length();
-				;
-
-				// Tratando data
-				String[] data = campoDataNascimento.getText().split("/");
-				int dia = Integer.parseInt(data[0]);
-				int mes = Integer.parseInt(data[1]);
-				int ano = Integer.parseInt(data[2]);
-				Data dataNascimento = new Data(dia, mes, ano);
-				int anoAtual = Integer.parseInt(
-						new java.text.SimpleDateFormat("yyyy").format(new java.util.Date(System.currentTimeMillis())));
-
-				// Verifica espaços vazios
-
-				if (contCampoMatricula != 0) {
-					validacao = false;
-				}
-
-				if (contCampoNome != 0) {
-					validacao = false;
-				}
-
-				// Verifica mes de fevereiro
-				if ((mes == 2) && (dia > 28)) {
-					validacao = false;
-				}
-				// Verifica data
-				if ((dia > 31) || (dia < 1) || (mes < 1) || (mes > 12) || (ano > anoAtual) || (ano < 1800)) {
-					validacao = false;
-				}
-
-//				// Validação
-//				if (validacao) {
-//					aluno.inserirAluno(campoMatricula.getText(), campoNome.getText(), dataNascimento);
-//					JOptionPane.showMessageDialog(null, "Aluno cadastrado com sucesso");
-//				} else {
-//					JOptionPane.showMessageDialog(null, "Favor verificar se todos os campos foram preechidos corretamente", "", 0);
-//				}
-
-			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Favor verificar se todos os campos foram preechidos corretamente",
-						"", 0);
-			} catch (java.lang.ArrayIndexOutOfBoundsException e) {
-				JOptionPane.showMessageDialog(null, "Favor digitar a data no formato dd/mm/aaaa", "", 0);
-			} catch (java.lang.StringIndexOutOfBoundsException e) {
-				JOptionPane.showMessageDialog(null, "Favor digitar o sexo M ou F", "", 0);
+			String sexo = "";
+			if (rbtSexoF.isSelected()) {
+				sexo = "F";
 			}
+			if (rbtSexoM.isSelected()) {
+				sexo = "M";
+			}
+			
+			String estadoS = cboxEstado.getSelectedItem().toString();
+			String cidadeS = cboxCidade.getSelectedItem().toString();
 
-			// Limpa campos
-			campoMatricula.setText("");
-			campoNome.setText("");
-			campoDataNascimento.setText("");
+			AlunoController ac = new AlunoController();
+
+			ac.verificarSelecionado(campoNome.getText(), campoMatricula.getText(), sexo, campoRg.getText(),
+					campoCpf.getText(), campoTelefone.getText(), campoDataNascimento.getText(), jtfSenha.getText(),
+					campoLogradouro.getText(), campoNumero.getText(), campoComplemento.getText(), campoBairro.getText(),
+					campoCep.getText(), estadoS, cidadeS);
+
+			campoBairro.setText(" ");
+			campoCep.setText(" ");
+			campoComplemento.setText(" ");
+			campoCpf.setText(" ");
+			campoDataNascimento.setText(" ");
+			campoLogradouro.setText(" ");
+			campoMatricula.setText(" ");
+			campoNome.setText(" ");
+			campoNumero.setText(" ");
+			campoRg.setText(" ");
+			jpwSenha.setText(" ");
+			campoTelefone.setText(" ");
 		}
-
 	}
 
-	// Função do botão cancelar
+// Função do botão cancelar
 	public class CancelaListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			System.exit(0);
+			campoBairro.setText(" ");
+			campoCep.setText(" ");
+			campoComplemento.setText(" ");
+			campoCpf.setText(" ");
+			campoDataNascimento.setText(" ");
+			campoLogradouro.setText(" ");
+			campoMatricula.setText(" ");
+			campoNome.setText(" ");
+			campoNumero.setText(" ");
+			campoRg.setText(" ");
+			jpwSenha.setText(" ");
+			campoTelefone.setText(" ");
+
 		}
 	}
 }
