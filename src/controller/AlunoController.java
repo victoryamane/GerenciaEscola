@@ -18,153 +18,175 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 import model.Aluno;
+import model.Cidade;
 import model.Data;
+import model.Endereco;
+import model.Estado;
 
 public class AlunoController {
 
-	public void inserirAluno(String matricula, String nome, Data data, char sexo) {
-		Data d1 = new Data();
-		Aluno a1 = new Aluno();
-		a1.setMatricula(matricula);
-		a1.setNome(nome);
-		a1.setDataNascimento(data);
-		a1.setSexo(sexo);
+	public void verificarSelecionado(String nome, String matricula, String sexo, String rg, String cpf, String telefone,
+			String dataDeNascimento, String senha, String logradouro, String numero, String complemento, String bairro,
+			String cep, String estado, String cidade) {
+		int n = 0;
+		char sexoTrans = sexo.charAt(0);
+		n = Integer.parseInt(numero);
+		String[] dataquebrada = dataDeNascimento.split("/");
+		int dia = Integer.parseInt(dataquebrada[0]);
+		int mes = Integer.parseInt(dataquebrada[1]);
+		int ano = Integer.parseInt(dataquebrada[2]);
 
-//		Aluno a2 = new Aluno();
-//		Data data2 = new Data(02, 01, 1995);
-//		a2.setMatricula("17101243");
-//		a2.setNome("Isabela Souza");
-//		a2.setDataNascimento(data2);
-//		a2.setSexo('F');
-//
-//		Aluno a3 = new Aluno();
-//		Data data3 = new Data(26, 11, 1991);
-//		a3.setMatricula("17101141");
-//		a3.setNome("João Paulo");
-//		a3.setDataNascimento(data3);
-//		a3.setSexo('M');
-//
-//		Aluno a4 = new Aluno();
-//		Data data4 = new Data(9, 06, 1992);
-//		a4.setMatricula("17101328");
-//		a4.setNome("Rafael Guerreiro");
-//		a4.setDataNascimento(data4);
-//		a4.setSexo('M');
-//
-//		Aluno a5 = new Aluno();
-//		Data data5 = new Data(01, 04, 1992);
-//		a5.setMatricula("17101150");
-//		a5.setNome("Rafel Perrucci");
-//		a5.setDataNascimento(data5);
-//		a5.setSexo('M');
+		Data data = new Data(dia, mes, ano);
 
-		File arquivo = new File("aluno.txt");
-		try {
-			FileOutputStream arquivoOutput = new FileOutputStream(arquivo, true);
-			PrintStream gravador = new PrintStream(arquivoOutput);
-			gravador.print("Matricula: " + a1.getMatricula());
-			gravador.print(";");
-			gravador.print("Nome: " + a1.getNome());
-			gravador.print(";");
-			gravador.print("Data de nascimento: " + a1.getDataNascimento().toString());
-			gravador.print(";");
-			gravador.println("Sexo: " + a1.getSexo());
+		Cidade cidade1 = new Cidade();
+		cidade1.setNome(cidade);
 
-//			gravador.print("Matricula: " + a2.getMatricula());
-//			gravador.print(";");
-//			gravador.print("Nome: " + a2.getNome());
-//			gravador.print(";");
-//			gravador.print("Data de nascimento: " + a2.getDataNascimento().toString());
-//			gravador.print(";");
-//			gravador.println("Sexo: " + a2.getSexo());
-//
-//			gravador.print("Matricula: " + a3.getMatricula());
-//			gravador.print(";");
-//			gravador.print("Nome: " + a3.getNome());
-//			gravador.print(";");
-//			gravador.print("Data de nascimento: " + a3.getDataNascimento().toString());
-//			gravador.print(";");
-//			gravador.println("Sexo: " + a3.getSexo());
-//
-//			gravador.print("Matricula: " + a4.getMatricula());
-//			gravador.print(";");
-//			gravador.print("Nome: " + a4.getNome());
-//			gravador.print(";");
-//			gravador.print("Data de nascimento: " + a4.getDataNascimento().toString());
-//			gravador.print(";");
-//			gravador.println("Sexo: " + a4.getSexo());
-//
-//			gravador.print("Matricula: " + a5.getMatricula());
-//			gravador.print(";");
-//			gravador.print("Nome: " + a5.getNome());
-//			gravador.print(";");
-//			gravador.print("Data de nascimento: " + a5.getDataNascimento().toString());
-//			gravador.print(";");
-//			gravador.println("Sexo: " + a5.getSexo());
+		Estado estado1 = new Estado();
+		estado1.setNome(estado);
 
-			gravador.close();
-			arquivoOutput.close();
+		Endereco endereco = new Endereco();
+		endereco.setBairro(bairro);
+		endereco.setCep(cep);
+		endereco.setCidade(cidade1);
+		endereco.setComplemento(complemento);
+		endereco.setLogradouro(logradouro);
+		endereco.setNumero(n);
 
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Aluno al = new Aluno();
+		al.setCpf(cpf);
+		al.setDataNascimento(data);
+		al.setEndereco(endereco);
+		al.setMatricula(matricula);
+		al.setNome(nome);
+		al.setRg(rg);
+		al.setSenha(senha);
+		al.setSexo(sexoTrans);
+		al.setTelefone(telefone);
 
+		inserirAluno(al);
 	}
 
-	public void listarTodos() {
+	// receber informaçoes do aluno e salvar no arquivo
+	public void inserirAluno(Aluno aluno) {
+
+		File arquivo = new File("aluno.txt");
+
 		try {
-			InputStream is = new FileInputStream("aluno.txt");
+			FileOutputStream arquiOutput = new FileOutputStream(arquivo, true);
+			PrintStream gravador = new PrintStream(arquiOutput);
+
+			gravador.print(aluno.getMatricula());
+			gravador.print(";");
+			gravador.print(aluno.getNome());
+			gravador.print(";");
+			gravador.print(aluno.getDataNascimento().toString());
+			gravador.print(";");
+			gravador.print(aluno.getSexo());
+			gravador.print(";");
+			gravador.print(aluno.getCpf());
+			gravador.print(";");
+			gravador.print(aluno.getRg());
+			gravador.print(";");
+			gravador.print(aluno.getSenha());
+			gravador.print(";");
+			gravador.print(aluno.getTelefone());
+			gravador.print(";");
+			gravador.print(aluno.getEndereco().getBairro());
+			gravador.print(";");
+			gravador.print(aluno.getEndereco().getCep());
+			gravador.print(";");
+			gravador.print(aluno.getEndereco().getComplemento());
+			gravador.print(";");
+			gravador.print(aluno.getEndereco().getLogradouro());
+			gravador.print(";");
+			gravador.print(aluno.getEndereco().getNumero());
+			gravador.println("");
+			gravador.print(aluno.getEndereco().getCidade().getNome());
+			gravador.print(";");
+			gravador.print(aluno.getEndereco().getEstado().getNome());
+			gravador.print(";");
+			gravador.println(aluno.getEndereco().getEstado().getUf());
+
+			gravador.close();
+			arquiOutput.close();
+		} catch (FileNotFoundException e) {
+
+			e.printStackTrace();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	// exibe todos os alunos
+	public String listarTodos() {
+		String lista = "";
+		InputStream is;
+		try {
+			is = new FileInputStream("aluno.txt");
 			InputStreamReader isr = new InputStreamReader(is);
 			BufferedReader leitor = new BufferedReader(isr);
 			String texto = leitor.readLine();
 			while (texto != null) {
-				String dados[] = texto.split(";");
 
-				System.out.println("Matricula do aluno: " + dados[0]);
-				System.out.println("Nome do aluno.....: " + dados[1]);
-				System.out.println("Data Nasc do aluno: " + dados[2]);
-				System.out.println("Sexo do aluno.....: " + dados[3] + "\n");
+				String[] dado = texto.split(";");
+
+				lista += "matricula do aluno :" + dado[0] + "\n";
+				lista += "nome do aluno :" + dado[1] + "\n";
+				lista += "data de nascimento do aluno :" + dado[2] + "\n";
+				lista += "Sexo do aluno :" + dado[3] + "\n";
+				lista += "CPF do aluno :" + dado[4] + "\n";
+				lista += "RG do aluno :" + dado[5] + "\n";
+				lista += "Telefone do aluno :" + dado[7] + "\n";
+				lista += "Bairro do aluno :" + dado[8] + "\n";
+				lista += "CEP do aluno :" + dado[9] + "\n";
+				lista += "Logradouro do aluno :" + dado[11] + "\n";
+				lista += "complemento :" + dado[10] + "\n";
+				lista += "Numero do aluno :" + dado[12] + "\n";
+//				lista +="Nome da Cidade  do aluno :" + dado[11] + "\n";
+//				lista +="Nome do Estado do aluno :" + dado[12] + "\n";
+//				lista +="Sigla do Estado do aluno :" + dado[13] + "\n";
+
 				texto = leitor.readLine();
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("arquivo de entrada nao encontrado");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		return lista;
 	}
 
-	public void listaAniversariantes(int mes) {
+	public void listarAniversariantes(int mes) {
+		InputStream is;
 		try {
-			InputStream is = new FileInputStream("aluno.txt");
+			is = new FileInputStream("aluno.txt");
 			InputStreamReader isr = new InputStreamReader(is);
 			BufferedReader leitor = new BufferedReader(isr);
 			String texto = leitor.readLine();
-
 			while (texto != null) {
-				String[] dados = texto.split(";");
-				String data[] = dados[2].split("/");
-				int mesNiver = Integer.parseInt(data[1]);
 
-				if (mesNiver == mes) {
-					System.out.println(dados[0]);
-					System.out.println(dados[1]);
-					System.out.println(dados[2]);
-					System.out.println(dados[3]);
+				String dados[] = texto.split(";");
+				String data = dados[2];
+
+				String dataQuebrada[] = data.split("/");
+				int datac = Integer.parseInt(dataQuebrada[1]);
+
+				if (datac == mes) {
+					System.out.println("matricula do aluno :" + dados[0]);
+					System.out.println("nome do aluno :" + dados[1]);
+					System.out.println("data de nascimento do aluno :" + dados[2]);
+					System.out.println("Sexo do aluno :" + dados[3] + "\n");
+
 				}
 				texto = leitor.readLine();
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
+			System.out.println("arquivo de entrada nao encontrado");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 
