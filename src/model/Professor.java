@@ -8,12 +8,24 @@ package model;
  */
 
 public class Professor {
-	private String materia;
+	private String[] materia;
+	
+	public Professor() {
+		
+	}
 
+	public Professor(String[] materia) {
+		super();
+		this.materia = materia;
+	}
 
-//	public void exibe() {
-//		super.exibe();
-//		System.out.println("Materia do professor: " + materia);
-//	}
+	public String[] getMateria() {
+		return materia;
+	}
 
+	public void setMateria(String[] materia) {
+		this.materia = materia;
+	}
+
+	
 }

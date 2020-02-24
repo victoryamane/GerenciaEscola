@@ -202,6 +202,8 @@ public class FuncionarioView {
 		cboxCargo.setSelectedIndex(-1);
 		cboxCargo.setBounds(385, 50, 165, 19);
 		cboxCargo.setMaximumRowCount(10);
+		cboxCargo.addActionListener(new MudarCargo());
+		
 
 		// Configurações do combo box cidade
 		cboxCidade.setSelectedIndex(-1);
@@ -268,11 +270,54 @@ public class FuncionarioView {
 		janela.setVisible(true);
 
 	}
+	
+	// Metdo que mostra materia do professor	
+	public void mostraMateriaDoProfessor() {
+		limpaPainelDeCadaCargo();
+		System.out.println("Mostando materias");
+	}
+	
+	// Metdo que mostra ramal da secretaria	
+	public void mostraRamalDaSecretaria() {
+		limpaPainelDeCadaCargo();
+		System.out.println("Mostando ramal");
+	}
+	
+	// Metdo que mostra turno da faxineira
+	public void mostraTurnoDaFaxineira() {
+		limpaPainelDeCadaCargo(); 
+		System.out.println("Mostando turno");
+	}
+	
+	// Metdo que limpa painel de cada cargo
+	public void limpaPainelDeCadaCargo() {
+		System.out.println("Limpando materia");
+		System.out.println("Limpando ramal");
+		System.out.println("Limpando turno");
+	}
 
 	// Função do botão cancelar
 	public class CancelaListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			System.exit(0);
+		}
+	}
+	
+	// Função do mudar cargo
+	public class MudarCargo implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			if (cboxCargo.getSelectedItem().toString() == "1 - Professor") {
+				mostraMateriaDoProfessor();
+			}
+			
+			if (cboxCargo.getSelectedItem().toString() == "2 - Secretaria") {
+				mostraRamalDaSecretaria();
+			}
+			
+			if (cboxCargo.getSelectedItem().toString() == "3 - Faxineira") {
+				mostraTurnoDaFaxineira();
+			}
+			System.out.println(cboxCargo.getSelectedItem().toString());
 		}
 	}
 }
