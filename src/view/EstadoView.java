@@ -1,10 +1,15 @@
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import controller.EstadoController;
 
 public class EstadoView {
 	// Variaveis
@@ -45,9 +50,11 @@ public class EstadoView {
 
 		// Configuração do botão salvar
 		botaoSalvar.setBounds(10, 110, 90, 20);
+		botaoSalvar.addActionListener(new SalvarListenerEstado());
 
 		// Configuração do botão cancelar
 		botaoCancelar.setBounds(110, 110, 90, 20);
+		botaoCancelar.addActionListener(new CancelaListener());
 
 		// Configuração do painel da janela
 		painelDaJanela.add(lblCidade);
@@ -65,6 +72,22 @@ public class EstadoView {
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		janela.setVisible(true);
 
+	}
+
+	// Função do botão salvar
+	public class SalvarListenerEstado implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			EstadoController ec = new EstadoController();
+			ec.verificaSelecionadoEstado(campoCidade.getText());
+			ec.verificaSelecionadoEstado(campoEstado.getText());
+		}
+	}
+
+	// Função do botão cancelar
+	public class CancelaListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			System.exit(0);
+		}
 	}
 
 }

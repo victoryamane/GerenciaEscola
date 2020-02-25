@@ -24,6 +24,7 @@ public class RelatorioAlunoView {
 	private JLabel label;
 	private JPanel painelDaJanela;
 	private JScrollPane scroll;
+	
 	AlunoController ac = new AlunoController();
 	private String[] listarTodos = { ac.listarTodos() };
 

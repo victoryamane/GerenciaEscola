@@ -136,14 +136,14 @@ public class AlunoController {
 				lista += "nome do aluno :" + dado[1] + "\n";
 				lista += "data de nascimento do aluno :" + dado[2] + "\n";
 				lista += "Sexo do aluno :" + dado[3] + "\n";
-				lista += "CPF do aluno :" + dado[4] + "\n";
-				lista += "RG do aluno :" + dado[5] + "\n";
-				lista += "Telefone do aluno :" + dado[7] + "\n";
-				lista += "Bairro do aluno :" + dado[8] + "\n";
-				lista += "CEP do aluno :" + dado[9] + "\n";
-				lista += "Logradouro do aluno :" + dado[11] + "\n";
-				lista += "complemento :" + dado[10] + "\n";
-				lista += "Numero do aluno :" + dado[12] + "\n";
+//				lista += "CPF do aluno :" + dado[4] + "\n";
+//				lista += "RG do aluno :" + dado[5] + "\n";
+//				lista += "Telefone do aluno :" + dado[7] + "\n";
+//				lista += "Bairro do aluno :" + dado[8] + "\n";
+//				lista += "CEP do aluno :" + dado[9] + "\n";
+//				lista += "Logradouro do aluno :" + dado[11] + "\n";
+//				lista += "complemento :" + dado[10] + "\n";
+//				lista += "Numero do aluno :" + dado[12] + "\n";
 
 
 				texto = leitor.readLine();

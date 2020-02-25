@@ -6,32 +6,25 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import model.Cidade;
+import model.Estado;
 
-/**
- * Classe para cadastrar cidade
- * 
- * @author vyamane
- * @since 18/02/2020
- * @version 0.1
- */
-
-public class CidadeController {
-	public void verificaSelecionadoCidade(String cidade) {
-		Cidade cidade1 = new Cidade();
-		cidade1.setNome(cidade);
-		inserirCidade(cidade1);
+public class EstadoController {
+	public void verificaSelecionadoEstado(String estado) {
+		Estado estado1 = new Estado();
+		estado1.setNome(estado);
+		estado1.setUf(estado);
+		inserirEstado(estado1);
 	}
 
-	// Recebe informações de cadastro da cidade e salva no arquivo txt
-	public void inserirCidade(Cidade cidade) {
-		File arquivo = new File("cidade.txt");
+	// Recebe informações de cadastro do estado e salva no arquivo txt
+	public void inserirEstado(Estado estado) {
+		File arquivo = new File("estado.txt");
 
 		try {
 			FileOutputStream arquiOutput = new FileOutputStream(arquivo, true);
 			PrintStream gravador = new PrintStream(arquiOutput);
 
-			gravador.print(cidade.getNome());
+			gravador.print(estado.getUf());
 			gravador.print(";");
 			gravador.close();
 			arquiOutput.close();

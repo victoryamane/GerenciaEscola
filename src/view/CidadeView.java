@@ -38,7 +38,7 @@ public class CidadeView {
 
 		// Configuração do botão salvar
 		botaoSalvar.setBounds(10, 70, 90, 20);
-		botaoSalvar.addActionListener(new SalvarListener());
+		botaoSalvar.addActionListener(new SalvarListenerCidade());
 
 		// Configuração do botão cancelar
 		botaoCancelar.setBounds(110, 70, 90, 20);
@@ -61,7 +61,7 @@ public class CidadeView {
 	}
 
 	// Função do botão salvar
-	public class SalvarListener implements ActionListener {
+	public class SalvarListenerCidade implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			CidadeController cc = new CidadeController();
 			cc.verificaSelecionadoCidade(campoCidade.getText());
