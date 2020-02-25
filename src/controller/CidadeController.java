@@ -16,7 +16,7 @@ import model.Cidade;
  * @version 0.1
  */
 
-public class CidadController {
+public class CidadeController {
 	public void verificaSelecionadoCidade(String cidade) {
 		Cidade cidade1 = new Cidade();
 		cidade1.setNome(cidade);
@@ -32,7 +32,6 @@ public class CidadController {
 
 			gravador.print(cidade.getNome());
 			gravador.print(";");
-
 			gravador.close();
 			arquiOutput.close();
 		} catch (FileNotFoundException e) {

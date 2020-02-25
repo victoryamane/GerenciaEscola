@@ -144,9 +144,7 @@ public class AlunoController {
 				lista += "Logradouro do aluno :" + dado[11] + "\n";
 				lista += "complemento :" + dado[10] + "\n";
 				lista += "Numero do aluno :" + dado[12] + "\n";
-//				lista +="Nome da Cidade  do aluno :" + dado[11] + "\n";
-//				lista +="Nome do Estado do aluno :" + dado[12] + "\n";
-//				lista +="Sigla do Estado do aluno :" + dado[13] + "\n";
+
 
 				texto = leitor.readLine();
 			}
