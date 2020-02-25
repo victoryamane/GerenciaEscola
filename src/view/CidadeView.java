@@ -64,7 +64,8 @@ public class CidadeView {
 	public class SalvarListenerCidade implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			CidadeController cc = new CidadeController();
-			cc.verificaSelecionadoCidade(campoCidade.getText());
+			cc.verificaSelecionadoCidade(campoCidade.getText().toUpperCase());			
+			campoCidade.setText(" ");
 		}
 	}
 

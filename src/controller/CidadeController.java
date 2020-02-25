@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import javax.swing.JOptionPane;
+
 import model.Cidade;
 
 /**
@@ -35,6 +37,7 @@ public class CidadeController {
 			gravador.print(";");
 			gravador.close();
 			arquiOutput.close();
+			JOptionPane.showMessageDialog(null, "Cidadede cadastrada com sucesso");
 		} catch (FileNotFoundException e) {
 
 			e.printStackTrace();

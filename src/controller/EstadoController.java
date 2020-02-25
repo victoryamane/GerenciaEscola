@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import javax.swing.JOptionPane;
+
 import model.Estado;
 
 public class EstadoController {
@@ -24,10 +26,11 @@ public class EstadoController {
 			FileOutputStream arquiOutput = new FileOutputStream(arquivo, true);
 			PrintStream gravador = new PrintStream(arquiOutput);
 
-			gravador.print(estado.getUf());
+			gravador.print(estado.getUf().toUpperCase());
 			gravador.print(";");
 			gravador.close();
 			arquiOutput.close();
+			JOptionPane.showMessageDialog(null, "Estado cadastrado com sucesso");
 		} catch (FileNotFoundException e) {
 
 			e.printStackTrace();

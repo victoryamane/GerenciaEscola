@@ -11,10 +11,10 @@ import model.Professor;
 
 public class ProfessorController {
 
-	public void testaProfessor() {
+	
 
 		
 
 	}
 
-}
+

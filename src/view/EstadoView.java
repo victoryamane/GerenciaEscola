@@ -80,6 +80,7 @@ public class EstadoView {
 			EstadoController ec = new EstadoController();
 			ec.verificaSelecionadoEstado(campoCidade.getText());
 			ec.verificaSelecionadoEstado(campoEstado.getText());
+			campoEstado.setText(" ");
 		}
 	}
 
