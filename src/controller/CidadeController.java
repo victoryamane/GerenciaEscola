@@ -37,7 +37,7 @@ public class CidadeController {
 			gravador.print(";");
 			gravador.close();
 			arquiOutput.close();
-			JOptionPane.showMessageDialog(null, "Cidadede cadastrada com sucesso");
+			JOptionPane.showMessageDialog(null, "Cidade cadastrada com sucesso");
 		} catch (FileNotFoundException e) {
 
 			e.printStackTrace();
