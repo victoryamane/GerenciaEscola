@@ -304,9 +304,7 @@ public class AlunoView {
 			}
 			if (rbtSexoM.isSelected()) {
 				sexo = "M";
-			}
-			
-		
+			}		
 			Object itemEstado = cboxEstado.getSelectedItem();
 			String estadoS;
 			if (itemEstado != null) {
