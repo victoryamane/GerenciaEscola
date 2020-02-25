@@ -43,11 +43,13 @@ public class AlunoController {
 
 		Estado estado1 = new Estado();
 		estado1.setNome(estado);
+		estado1.setUf(estado);
 
 		Endereco endereco = new Endereco();
 		endereco.setBairro(bairro);
 		endereco.setCep(cep);
 		endereco.setCidade(cidade1);
+		endereco.setEstado(estado1);		
 		endereco.setComplemento(complemento);
 		endereco.setLogradouro(logradouro);
 		endereco.setNumero(n);

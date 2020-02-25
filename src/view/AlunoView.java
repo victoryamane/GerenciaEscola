@@ -306,8 +306,22 @@ public class AlunoView {
 				sexo = "M";
 			}
 			
-			String estadoS = cboxEstado.getSelectedItem().toString();
-			String cidadeS = cboxCidade.getSelectedItem().toString();
+		
+			Object itemEstado = cboxEstado.getSelectedItem();
+			String estadoS;
+			if (itemEstado != null) {
+				estadoS= itemEstado.toString();
+			}else {
+				estadoS ="";
+			}				
+			
+			Object itemCidade = cboxCidade.getSelectedItem();			
+			String cidadeS;
+			if (itemCidade != null) {
+				cidadeS= itemCidade.toString();
+			}else {
+				cidadeS ="";
+			}
 
 			AlunoController ac = new AlunoController();
 

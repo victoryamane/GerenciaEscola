@@ -87,6 +87,16 @@ public class MenuView {
 
 			}
 		});
+		
+		// Configurando ação do item de menu 5
+		itemMenu5.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				new RelatorioAlunoView().iniciaGui();
+
+			}
+		});
 
 
 		// Configurações do painel da tela
