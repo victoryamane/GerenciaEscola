@@ -14,6 +14,11 @@ public class Estado {
 		this.uf = uf;
 	}
 
+	@Override
+	public String toString() {
+		return nome + "-" + uf;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -29,7 +34,5 @@ public class Estado {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-	
-	
 
 }

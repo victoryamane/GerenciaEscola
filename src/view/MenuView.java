@@ -1,5 +1,12 @@
 package view;
 
+/**
+ * Classe da tela de menu
+ * @author vyamane
+ *@since 18/02/2020
+ *@version 0.1
+ */
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -55,7 +62,6 @@ public class MenuView {
 			public void actionPerformed(ActionEvent e) {
 
 				new AlunoView().iniciaGui();
-
 			}
 		});
 		// Configurando ação do item de menu 2
@@ -64,7 +70,6 @@ public class MenuView {
 			public void actionPerformed(ActionEvent e) {
 
 				new FuncionarioView().iniciaGui();
-
 			}
 		});
 		
@@ -74,7 +79,6 @@ public class MenuView {
 			public void actionPerformed(ActionEvent e) {
 
 				new EstadoView().iniciaGui();
-
 			}
 		});
 		
@@ -84,7 +88,6 @@ public class MenuView {
 			public void actionPerformed(ActionEvent e) {
 
 				new CidadeView().iniciaGui();
-
 			}
 		});
 		
@@ -92,7 +95,6 @@ public class MenuView {
 		itemMenu5.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-
 				new RelatorioAlunoView().iniciaGui();
 
 			}

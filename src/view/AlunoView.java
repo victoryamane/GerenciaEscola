@@ -1,5 +1,13 @@
 package view;
 
+/**
+ * Classe da tela do aluno
+ * 
+ * @author vyamane
+ * @since 18/02/2020
+ * @version 0.1
+ */
+
 import java.awt.GridLayout;
 
 /**
@@ -11,6 +19,8 @@ import java.awt.GridLayout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.LineNumberInputStream;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -18,6 +28,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -25,6 +36,10 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import controller.AlunoController;
+import controller.CidadeController;
+import controller.EstadoController;
+import model.Cidade;
+import model.Estado;
 
 public class AlunoView {
 	// Variaveis
@@ -100,8 +115,15 @@ public class AlunoView {
 		campoTelefone = new JTextField();
 		rbtSexoM = new JRadioButton();
 		rbtSexoF = new JRadioButton();
-		cboxCidade = new JComboBox();
-		cboxEstado = new JComboBox();
+		
+		CidadeController cidadeController = new CidadeController();
+		List<Cidade> listaCidade = cidadeController.listarTodos();		
+		cboxCidade = new JComboBox(listaCidade.toArray());
+		
+		EstadoController estadoController = new EstadoController();
+		List<Estado> listaEstado = estadoController.listarTodos();
+		cboxEstado = new JComboBox(listaEstado.toArray());
+		
 		jtfSenha = new JLabel();
 		jpwSenha = new JPasswordField();
 		painelDaJanela = (JPanel) janela.getContentPane();
@@ -305,41 +327,39 @@ public class AlunoView {
 			if (rbtSexoM.isSelected()) {
 				sexo = "M";
 			}		
-			Object itemEstado = cboxEstado.getSelectedItem();
-			String estadoS;
-			if (itemEstado != null) {
-				estadoS= itemEstado.toString();
-			}else {
-				estadoS ="";
-			}				
-			
-			Object itemCidade = cboxCidade.getSelectedItem();			
-			String cidadeS;
-			if (itemCidade != null) {
-				cidadeS= itemCidade.toString();
-			}else {
-				cidadeS ="";
+			Estado itemEstado = (Estado) cboxEstado.getSelectedItem();
+			if(itemEstado == null) {
+				JOptionPane.showMessageDialog(null, "Por favor selecione o estado");
+				return;
 			}
+			
+			Cidade itemCidade = (Cidade) cboxCidade.getSelectedItem();
+			if(itemCidade == null) {
+				JOptionPane.showMessageDialog(null, "Por favor selecione a cidade");
+				return;
+			}
+			
 
 			AlunoController ac = new AlunoController();
 
 			ac.verificarSelecionado(campoNome.getText(), campoMatricula.getText(), sexo, campoRg.getText(),
 					campoCpf.getText(), campoTelefone.getText(), campoDataNascimento.getText(), jtfSenha.getText(),
 					campoLogradouro.getText(), campoNumero.getText(), campoComplemento.getText(), campoBairro.getText(),
-					campoCep.getText(), estadoS, cidadeS);
+					campoCep.getText(), itemEstado, itemCidade);
 
-			campoBairro.setText(" ");
-			campoCep.setText(" ");
-			campoComplemento.setText(" ");
-			campoCpf.setText(" ");
-			campoDataNascimento.setText(" ");
-			campoLogradouro.setText(" ");
-			campoMatricula.setText(" ");
-			campoNome.setText(" ");
-			campoNumero.setText(" ");
-			campoRg.setText(" ");
-			jpwSenha.setText(" ");
-			campoTelefone.setText(" ");
+			campoBairro.setText("");
+			campoCep.setText("");
+			campoComplemento.setText("");
+			campoCpf.setText("");
+			campoDataNascimento.setText("");
+			campoLogradouro.setText("");
+			campoMatricula.setText("");
+			campoNome.setText("");
+			campoNumero.setText("");
+			campoRg.setText("");
+			jpwSenha.setText("");
+			campoTelefone.setText("");
+			
 		}
 	}
 
@@ -347,19 +367,6 @@ public class AlunoView {
 	public class CancelaListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			System.exit(0);
-			campoBairro.setText(" ");
-			campoCep.setText(" ");
-			campoComplemento.setText(" ");
-			campoCpf.setText(" ");
-			campoDataNascimento.setText(" ");
-			campoLogradouro.setText(" ");
-			campoMatricula.setText(" ");
-			campoNome.setText(" ");
-			campoNumero.setText(" ");
-			campoRg.setText(" ");
-			jpwSenha.setText(" ");
-			campoTelefone.setText(" ");
-
 		}
 	}
 }

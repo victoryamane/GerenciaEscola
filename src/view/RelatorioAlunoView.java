@@ -1,13 +1,14 @@
 package view;
 
+import java.util.List;
+
 /**
- * Classe resposavel para exibir o relarotorio de aluno
+ * Classe da tela do relatorio do aluno
  * @author vyamane
  *@since 18/02/2020
  *@version 0.1
  */
 
-import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -16,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import controller.AlunoController;
 
 public class RelatorioAlunoView {
@@ -26,13 +28,13 @@ public class RelatorioAlunoView {
 	private JScrollPane scroll;
 	
 	AlunoController ac = new AlunoController();
-	private String[] listarTodos = { ac.listarTodos() };
+	private List<String> listarTodos = ac.listarTodos();
 
 	public void iniciaGui() {
 		// instancia
 		janela = new JFrame("Relatorio do Aluno");
 		painelDaJanela = (JPanel) janela.getContentPane();
-		list = new JList(listarTodos);
+		list = new JList(listarTodos.toArray());
 		label = new JLabel();
 		scroll = new JScrollPane(list);
 
@@ -64,4 +66,5 @@ public class RelatorioAlunoView {
 		janela.setVisible(true);
 
 	}
+	
 }

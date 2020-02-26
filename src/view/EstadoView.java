@@ -1,5 +1,12 @@
 package view;
 
+/**
+ * Classe da tela de estado
+ * @author vyamane
+ *@since 18/02/2020
+ *@version 0.1
+ */
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,10 +21,10 @@ import controller.EstadoController;
 public class EstadoView {
 	// Variaveis
 	private JFrame janela;
-	private JLabel lblCidade;
 	private JLabel lblEstado;
-	private JTextField campoCidade;
+	private JLabel lblUf;
 	private JTextField campoEstado;
+	private JTextField campoUf;
 	private JButton botaoSalvar;
 	private JButton botaoCancelar;
 	private JPanel painelDaJanela;
@@ -25,28 +32,28 @@ public class EstadoView {
 	public void iniciaGui() {
 		// instacia
 		janela = new JFrame();
-		lblCidade = new JLabel();
 		lblEstado = new JLabel();
-		campoCidade = new JTextField();
+		lblUf = new JLabel();
 		campoEstado = new JTextField();
+		campoUf = new JTextField();
 		botaoSalvar = new JButton("Salvar");
 		botaoCancelar = new JButton("Cancelar");
 
 		painelDaJanela = (JPanel) janela.getContentPane();
 
-		// Configuração da label cidade
-		lblCidade.setText("Cidade");
-		lblCidade.setBounds(10, 10, 95, 20);
-
 		// Configuração da label estado
 		lblEstado.setText("Estado");
-		lblEstado.setBounds(10, 50, 95, 20);
+		lblEstado.setBounds(10, 10, 95, 20);
 
-		// Configuração da campo cidade
-		campoCidade.setBounds(10, 30, 190, 20);
+		// Configuração da label uf
+		lblUf.setText("UF");
+		lblUf.setBounds(10, 50, 95, 20);
 
 		// Configuração da campo estado
-		campoEstado.setBounds(10, 70, 190, 20);
+		campoEstado.setBounds(10, 30, 190, 20);
+
+		// Configuração da campo uf
+		campoUf.setBounds(10, 70, 190, 20);
 
 		// Configuração do botão salvar
 		botaoSalvar.setBounds(10, 110, 90, 20);
@@ -57,10 +64,10 @@ public class EstadoView {
 		botaoCancelar.addActionListener(new CancelaListener());
 
 		// Configuração do painel da janela
-		painelDaJanela.add(lblCidade);
 		painelDaJanela.add(lblEstado);
-		painelDaJanela.add(campoCidade);
+		painelDaJanela.add(lblUf);
 		painelDaJanela.add(campoEstado);
+		painelDaJanela.add(campoUf);
 		painelDaJanela.add(botaoSalvar);
 		painelDaJanela.add(botaoCancelar);
 
@@ -78,10 +85,9 @@ public class EstadoView {
 	public class SalvarListenerEstado implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			EstadoController ec = new EstadoController();
-			ec.verificaSelecionadoEstado(campoCidade.getText());
-			ec.verificaSelecionadoEstado(campoEstado.getText());
-			campoCidade.setText(" ");
-			campoEstado.setText(" ");
+			ec.verificaSelecionadoEstado(campoEstado.getText(), campoUf.getText());
+			campoEstado.setText("");
+			campoUf.setText("");
 		}
 	}
 

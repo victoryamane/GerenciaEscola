@@ -16,6 +16,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import model.Aluno;
 import model.Cidade;
@@ -27,7 +31,7 @@ public class AlunoController {
 
 	public void verificarSelecionado(String nome, String matricula, String sexo, String rg, String cpf, String telefone,
 			String dataDeNascimento, String senha, String logradouro, String numero, String complemento, String bairro,
-			String cep, String estado, String cidade) {
+			String cep, Estado estado, Cidade cidade) {
 		int n = 0;
 		char sexoTrans = sexo.charAt(0);
 		n = Integer.parseInt(numero);
@@ -38,18 +42,11 @@ public class AlunoController {
 
 		Data data = new Data(dia, mes, ano);
 
-		Cidade cidade1 = new Cidade();
-		cidade1.setNome(cidade);
-
-		Estado estado1 = new Estado();
-		estado1.setNome(estado);
-		estado1.setUf(estado);
-
 		Endereco endereco = new Endereco();
 		endereco.setBairro(bairro);
 		endereco.setCep(cep);
-		endereco.setCidade(cidade1);
-		endereco.setEstado(estado1);		
+		endereco.setCidade(cidade);
+		endereco.setEstado(estado);
 		endereco.setComplemento(complemento);
 		endereco.setLogradouro(logradouro);
 		endereco.setNumero(n);
@@ -77,6 +74,7 @@ public class AlunoController {
 			FileOutputStream arquiOutput = new FileOutputStream(arquivo, true);
 			PrintStream gravador = new PrintStream(arquiOutput);
 
+			gravador.print("\n");
 			gravador.print(aluno.getMatricula());
 			gravador.print(";");
 			gravador.print(aluno.getNome());
@@ -89,39 +87,34 @@ public class AlunoController {
 			gravador.print(";");
 			gravador.print(aluno.getRg());
 			gravador.print(";");
-			gravador.print(aluno.getSenha());
-			gravador.print(";");
 			gravador.print(aluno.getTelefone());
+			gravador.print(";");
+			gravador.print(aluno.getEndereco().getCep());			
 			gravador.print(";");
 			gravador.print(aluno.getEndereco().getBairro());
 			gravador.print(";");
-			gravador.print(aluno.getEndereco().getCep());
+			gravador.print(aluno.getEndereco().getLogradouro());			
 			gravador.print(";");
 			gravador.print(aluno.getEndereco().getComplemento());
 			gravador.print(";");
-			gravador.print(aluno.getEndereco().getLogradouro());
-			gravador.print(";");
 			gravador.print(aluno.getEndereco().getNumero());
-			gravador.println("");
+			gravador.print(";");
 			gravador.print(aluno.getEndereco().getCidade().getNome());
-			gravador.print(";");
-			gravador.print(aluno.getEndereco().getEstado().getNome());
-			gravador.print(";");
-			gravador.println(aluno.getEndereco().getEstado().getUf());
+			gravador.print(";");			
+			gravador.print(aluno.getEndereco().getEstado().getUf());	
 
 			gravador.close();
-			arquiOutput.close();
+			
+			JOptionPane.showMessageDialog(null, "Aluno cadastrado com sucesso");
 		} catch (FileNotFoundException e) {
 
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} 
 	}
 
-	// exibe todos os alunos
-	public String listarTodos() {
-		String lista = "";
+	// exibe relatorio de alunos
+	public List<String> listarTodos() {
+		List<String> arrayList = new ArrayList<String>();
 		InputStream is;
 		try {
 			is = new FileInputStream("aluno.txt");
@@ -129,66 +122,25 @@ public class AlunoController {
 			BufferedReader leitor = new BufferedReader(isr);
 			String texto = leitor.readLine();
 			while (texto != null) {
-
 				String[] dado = texto.split(";");
-
-				lista += "matricula do aluno :" + dado[0] + "\n";
-				lista += "nome do aluno :" + dado[1] + "\n";
-				lista += "data de nascimento do aluno :" + dado[2] + "\n";
-				lista += "Sexo do aluno :" + dado[3] + "\n";
-//				lista += "CPF do aluno :" + dado[4] + "\n";
-//				lista += "RG do aluno :" + dado[5] + "\n";
-//				lista += "Telefone do aluno :" + dado[7] + "\n";
-//				lista += "Bairro do aluno :" + dado[8] + "\n";
-//				lista += "CEP do aluno :" + dado[9] + "\n";
-//				lista += "Logradouro do aluno :" + dado[11] + "\n";
-//				lista += "complemento :" + dado[10] + "\n";
-//				lista += "Numero do aluno :" + dado[12] + "\n";
-
-
-				texto = leitor.readLine();
-			}
-		} catch (FileNotFoundException e) {
-			System.out.println("arquivo de entrada nao encontrado");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return lista;
-	}
-
-	public void listarAniversariantes(int mes) {
-		InputStream is;
-		try {
-			is = new FileInputStream("aluno.txt");
-			InputStreamReader isr = new InputStreamReader(is);
-			BufferedReader leitor = new BufferedReader(isr);
-			String texto = leitor.readLine();
-			while (texto != null) {
-
-				String dados[] = texto.split(";");
-				String data = dados[2];
-
-				String dataQuebrada[] = data.split("/");
-				int datac = Integer.parseInt(dataQuebrada[1]);
-
-				if (datac == mes) {
-					System.out.println("matricula do aluno :" + dados[0]);
-					System.out.println("nome do aluno :" + dados[1]);
-					System.out.println("data de nascimento do aluno :" + dados[2]);
-					System.out.println("Sexo do aluno :" + dados[3] + "\n");
-
+				
+				if(dado.length >= 4) {
+					String aluno = "";
+					aluno += "Matricula: " + dado[0] + ", ";
+					aluno += "Nome: " + dado[1] + ", ";
+					aluno += "Data de Nascimento: " + dado[2] + ", ";
+					aluno += "Sexo: " + dado[3];										
+					arrayList.add(aluno);					
 				}
 				texto = leitor.readLine();
 			}
+			leitor.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("arquivo de entrada nao encontrado");
+			JOptionPane.showMessageDialog(null, "Arquio não encotrado");
 		} catch (IOException e) {
-
 			e.printStackTrace();
 		}
 
+		return arrayList;
 	}
-
 }

@@ -1,0 +1,5 @@
+0001;Victor Yamane;22/9/1991;M;408.516.008/75;44.222.537-4;Senha;(11) 3976-8547;Piqueri;02912-000;apto 91 bl 02;Rua Coronel Bento Bicudo;940
+0002;Rafael Guerreiro;22/9/1991;M;408.516.008/75;44.222.537-4;Senha;(11) 3976-8547;Piqueri;02912-000;apto 91 bl 02;Rua Coronel Bento Bicudo;940
+0003;João;26/11/1991;M;741.747.417/44;74.174.747-4;(74) 1741-7474;02912-000;Lapa;lapa;lp;940;;
+0004;Isabela;2/1/1995;F;408.516.007/78;85.858.585-8;(85) 8585-8585;02912-000;piqueri;Rua coronel bento bicudo;51;940;SANTOS;SÃO PAULO-SP
+0005;Peteca;2/1/2009;F;747.529.696/96;85.852.858-5;(12) 1231-2121;02912-000;sdfgsdfg;asdfghdfg;sdfgfhgsdf;940;BARUERI;SP

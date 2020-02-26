@@ -65,7 +65,7 @@ public class CidadeView {
 		public void actionPerformed(ActionEvent e) {
 			CidadeController cc = new CidadeController();
 			cc.verificaSelecionadoCidade(campoCidade.getText().toUpperCase());			
-			campoCidade.setText(" ");
+			campoCidade.setText("");
 		}
 	}
 
