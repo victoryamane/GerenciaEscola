@@ -74,9 +74,7 @@ public class AlunoView {
 	private JRadioButton rbtSexoF;
 	private ButtonGroup grpRadio;
 	private JComboBox cboxCidade;
-	private String[] cidade = { "" };
 	private JComboBox cboxEstado;
-	private String[] estado = { "" };
 	private JLabel jtfSenha;
 	private JPasswordField jpwSenha;
 	private JPanel painelDaJanela;
@@ -115,15 +113,15 @@ public class AlunoView {
 		campoTelefone = new JTextField();
 		rbtSexoM = new JRadioButton();
 		rbtSexoF = new JRadioButton();
-		
+
 		CidadeController cidadeController = new CidadeController();
-		List<Cidade> listaCidade = cidadeController.listarTodos();		
+		List<Cidade> listaCidade = cidadeController.listarTodos();
 		cboxCidade = new JComboBox(listaCidade.toArray());
-		
+
 		EstadoController estadoController = new EstadoController();
 		List<Estado> listaEstado = estadoController.listarTodos();
 		cboxEstado = new JComboBox(listaEstado.toArray());
-		
+
 		jtfSenha = new JLabel();
 		jpwSenha = new JPasswordField();
 		painelDaJanela = (JPanel) janela.getContentPane();
@@ -326,19 +324,18 @@ public class AlunoView {
 			}
 			if (rbtSexoM.isSelected()) {
 				sexo = "M";
-			}		
+			}
 			Estado itemEstado = (Estado) cboxEstado.getSelectedItem();
-			if(itemEstado == null) {
+			if (itemEstado == null) {
 				JOptionPane.showMessageDialog(null, "Por favor selecione o estado");
 				return;
 			}
-			
+
 			Cidade itemCidade = (Cidade) cboxCidade.getSelectedItem();
-			if(itemCidade == null) {
+			if (itemCidade == null) {
 				JOptionPane.showMessageDialog(null, "Por favor selecione a cidade");
 				return;
 			}
-			
 
 			AlunoController ac = new AlunoController();
 
@@ -359,7 +356,7 @@ public class AlunoView {
 			campoRg.setText("");
 			jpwSenha.setText("");
 			campoTelefone.setText("");
-			
+
 		}
 	}
 

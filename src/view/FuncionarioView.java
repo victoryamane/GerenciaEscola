@@ -3,6 +3,7 @@ package view;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -10,8 +11,14 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import controller.CidadeController;
+import controller.EstadoController;
+import model.Cidade;
+import model.Estado;
 
 public class FuncionarioView {
 	// Declarar os componentes da tela
@@ -46,12 +53,16 @@ public class FuncionarioView {
 	private JComboBox cboxCargo;
 	private String[] cargo = { "1 - Professor", "2 - Secretaria", "3 - Faxineira" };
 	private JComboBox cboxCidade;
-	private String[] cidade = { "" };
 	private JComboBox cboxEstado;
-	private String[] estado = { "" };
 	private JPanel painelDaJanela;
 	private JPanel painelDadosFuncionario;
 	private JPanel painelLogradouro;
+
+	private JLabel lblMateria;
+	private JTextField campoMateria;
+	private JButton botaoSalvarMateria;
+	private JButton botaoExcluirMateria;
+	private JScrollPane scrollMateria;
 
 	public void iniciaGui() {
 
@@ -85,8 +96,16 @@ public class FuncionarioView {
 		campoRg = new JTextField();
 		campoTelefone = new JTextField();
 		cboxCargo = new JComboBox(cargo);
-		cboxCidade = new JComboBox(cidade);
-		cboxEstado = new JComboBox(estado);
+		
+		CidadeController cidadeController = new CidadeController();
+		List<Cidade> cidades = cidadeController.listarTodos();
+		cboxCidade = new JComboBox(cidades.toArray());
+		
+		EstadoController estadoController = new EstadoController();
+		List<Estado> estados = estadoController.listarTodos();
+		cboxEstado = new JComboBox(estados.toArray());
+		
+		
 		painelDaJanela = (JPanel) janela.getContentPane();
 		painelDadosFuncionario = new JPanel();
 		painelLogradouro = new JPanel();
@@ -102,7 +121,7 @@ public class FuncionarioView {
 		// Configuração da label nome
 		lblNome.setText("Nome");
 		lblNome.setBounds(30, 30, 95, 20);
-		
+
 		// Configuração da label cargo
 		lblCargo.setText("Cargo");
 		lblCargo.setBounds(385, 30, 95, 20);
@@ -185,13 +204,13 @@ public class FuncionarioView {
 		lblEstado.setText("Estado");
 		lblEstado.setBounds(385, 330, 95, 20);
 
-		// Cria um campo para digitar texto		
+		// Cria um campo para digitar texto
 		campoNome.setBounds(30, 50, 330, 20);
 		campoDataNascimento.setBounds(200, 150, 165, 20);
 		campoCpf.setBounds(200, 100, 165, 20);
 		campoRg.setBounds(385, 100, 165, 20);
 		campoTelefone.setBounds(30, 150, 150, 20);
-		campoSalario.setBounds(30, 100, 150, 20); 
+		campoSalario.setBounds(30, 100, 150, 20);
 		campoLogradouro.setBounds(30, 250, 520, 20);
 		campoNumero.setBounds(30, 300, 150, 20);
 		campoComplemento.setBounds(200, 300, 165, 20);
@@ -203,7 +222,6 @@ public class FuncionarioView {
 		cboxCargo.setBounds(385, 50, 165, 19);
 		cboxCargo.setMaximumRowCount(10);
 		cboxCargo.addActionListener(new MudarCargo());
-		
 
 		// Configurações do combo box cidade
 		cboxCidade.setSelectedIndex(-1);
@@ -214,6 +232,8 @@ public class FuncionarioView {
 		cboxEstado.setSelectedIndex(-1);
 		cboxEstado.setBounds(385, 350, 165, 19);
 		cboxEstado.setMaximumRowCount(10);
+
+		inciaGuiMateria();
 
 		// Configuração do painel do funcionario
 		painelDadosFuncionario.setBounds(5, 5, 555, 200);
@@ -230,7 +250,7 @@ public class FuncionarioView {
 		painelDaJanela.setBorder(BorderFactory.createLoweredBevelBorder());
 		painelDaJanela.add(botaoSalvar);
 		painelDaJanela.add(botaoCancelar);
-		painelDaJanela.add(campoNome);		
+		painelDaJanela.add(campoNome);
 		painelDaJanela.add(campoSalario);
 		painelDaJanela.add(campoDataNascimento);
 		painelDaJanela.add(campoLogradouro);
@@ -270,25 +290,51 @@ public class FuncionarioView {
 		janela.setVisible(true);
 
 	}
-	
-	// Metdo que mostra materia do professor	
+
+	public void inciaGuiMateria() {
+		lblMateria = new JLabel();
+		campoMateria = new JTextField();
+		botaoSalvarMateria = new JButton();
+		botaoExcluirMateria = new JButton();
+		scrollMateria = new JScrollPane();
+
+		// Configuração da label materia
+		lblMateria.setText("Materia");
+		lblMateria.setBounds(385, 130, 95, 20);
+		// Configuração da campo materia
+		campoMateria.setBounds(385, 150, 95, 20);
+		// Configuração da botao salvar materia
+		botaoSalvarMateria.setText("I");
+		botaoSalvarMateria.setBounds(400, 150, 20, 20);
+		// Configuração da botao EXCLUIR materia
+		botaoExcluirMateria.setText("E");
+		botaoExcluirMateria.setBounds(450, 150, 20, 20);
+
+		painelDaJanela.add(lblMateria);
+		painelDaJanela.add(campoMateria);
+		painelDaJanela.add(botaoSalvarMateria);
+		
+
+	}
+
+	// Metdo que mostra materia do professor
 	public void mostraMateriaDoProfessor() {
 		limpaPainelDeCadaCargo();
 		System.out.println("Mostando materias");
 	}
-	
-	// Metdo que mostra ramal da secretaria	
+
+	// Metdo que mostra ramal da secretaria
 	public void mostraRamalDaSecretaria() {
 		limpaPainelDeCadaCargo();
 		System.out.println("Mostando ramal");
 	}
-	
+
 	// Metdo que mostra turno da faxineira
 	public void mostraTurnoDaFaxineira() {
-		limpaPainelDeCadaCargo(); 
+		limpaPainelDeCadaCargo();
 		System.out.println("Mostando turno");
 	}
-	
+
 	// Metdo que limpa painel de cada cargo
 	public void limpaPainelDeCadaCargo() {
 		System.out.println("Limpando materia");
@@ -302,18 +348,18 @@ public class FuncionarioView {
 			System.exit(0);
 		}
 	}
-	
+
 	// Função do mudar cargo
 	public class MudarCargo implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (cboxCargo.getSelectedItem().toString() == "1 - Professor") {
 				mostraMateriaDoProfessor();
 			}
-			
+
 			if (cboxCargo.getSelectedItem().toString() == "2 - Secretaria") {
 				mostraRamalDaSecretaria();
 			}
-			
+
 			if (cboxCargo.getSelectedItem().toString() == "3 - Faxineira") {
 				mostraTurnoDaFaxineira();
 			}

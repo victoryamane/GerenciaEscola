@@ -17,14 +17,13 @@ public class Funcionario {
 	private String telefone;
 	private String endereco;
 	private double salario;
-	
-	Funcionario(){
-		
+
+	Funcionario() {
+
 	}
 
 	public Funcionario(int id, String nome, String cpf, String rg, String dataNascimento, String telefone,
 			String endereco, double salario) {
-		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -98,10 +97,7 @@ public class Funcionario {
 	public void setSalario(double salario) {
 		this.salario = salario;
 	}
-	
-	
 
-	
 //	public void exibe() {
 //		System.out.println("Nome do funcionario: " + nome);
 //		System.out.println("CPF do funcionario: " + cpf);
