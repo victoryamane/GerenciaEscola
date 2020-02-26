@@ -6,364 +6,600 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import controller.CidadeController;
 import controller.EstadoController;
+import controller.FaxineiraController;
+import controller.ProfessorController;
+import controller.SecretariaController;
 import model.Cidade;
 import model.Estado;
 
 public class FuncionarioView {
-	// Declarar os componentes da tela
 	private JFrame janela;
-	private JButton botaoSalvar;
-	private JButton botaoCancelar;
-	private JTextField campoDataNascimento;
-	private JTextField campoNome;
-	private JTextField campoSalario;
-	private JTextField campoLogradouro;
-	private JTextField campoNumero;
-	private JTextField campoComplemento;
-	private JTextField campoBairro;
-	private JTextField campoCep;
-	private JTextField campoCpf;
-	private JTextField campoRg;
-	private JTextField campoTelefone;
+
 	private JLabel lblNome;
-	private JLabel lblSalario;
 	private JLabel lblDataNascimento;
+	private JLabel lblRg;
+	private JLabel lblCpf;
+	private JLabel lblTelefone;
+	private JLabel lblSenha;
+	private JLabel lblSexo;
+	private JLabel lblRamal;
+	private JLabel lblTurno;
 	private JLabel lblLogradouro;
 	private JLabel lblNumero;
 	private JLabel lblComplemento;
 	private JLabel lblBairro;
 	private JLabel lblCep;
-	private JLabel lblCpf;
-	private JLabel lblRg;
-	private JLabel lblTelefone;
-	private JLabel lblCargo;
-	private JLabel lblCidade;
 	private JLabel lblEstado;
-	private JComboBox cboxCargo;
-	private String[] cargo = { "1 - Professor", "2 - Secretaria", "3 - Faxineira" };
-	private JComboBox cboxCidade;
+	private JLabel lblCidade;
+	private JLabel lblSalario;
+	private JLabel lblProfissao;
+	private JLabel lblMateria;
+
+	private JTextField campoLogradouro;
+	private JTextField campoNumero;
+	private JTextField campoComplemento;
+	private JTextField campoBairro;
+	private JTextField campoCep;
+
+	private JButton btnSalvarProfissao;
+	private JButton btnSalvar;
+	private JButton btnCancelar;
+
+	private JTextField campoTelefone;
+	private JTextField campoNome;
+
+	private JTextField campoDataNascimento;
+	private JTextField campoRg;
+	private JTextField campoCpf;
+	private JTextField campoSalario;
+	private JTextField campoRamal;
+
 	private JComboBox cboxEstado;
-	private JPanel painelDaJanela;
+	private JComboBox cboxCidade;
+	private JComboBox Profissao;
+
+	// Tabela
+	private JTable tabela;
+	private JTextField jtfMateria;
+	private JButton botaoIncluir;
+	private JButton botaoExcluir;
+	private JScrollPane painelDeScroll;
+	private String[] colunas = new String[] { "Materia" };
+
+	private String[] dados = new String[] { " " };
+	private String[] ProfissaoBox = { "Professor", "Faxineira", "Secretaria" };
+
+	private JRadioButton rbtTarde;
+	private JRadioButton rbtNoturno;
+	private ButtonGroup grpRadio;
+
 	private JPanel painelDadosFuncionario;
 	private JPanel painelLogradouro;
-
-	private JLabel lblMateria;
-	private JTextField campoMateria;
-	private JButton botaoSalvarMateria;
-	private JButton botaoExcluirMateria;
-	private JScrollPane scrollMateria;
+	private JPanel painelDaJanela;
 
 	public void iniciaGui() {
+		janela = new JFrame("Cadastro Do Funcionario");
 
-		// instacia
-		janela = new JFrame();
-		botaoSalvar = new JButton("Salvar");
-		botaoCancelar = new JButton("Cancelar");
-		lblNome = new JLabel();
+		rbtTarde = new JRadioButton();
+		rbtNoturno = new JRadioButton();
+		grpRadio = new ButtonGroup();
+
+		btnCancelar = new JButton();
+		btnSalvar = new JButton();
+		btnSalvarProfissao = new JButton("Escolher");
+
+		lblTurno = new JLabel();
+		lblMateria = new JLabel();
 		lblSalario = new JLabel();
+		lblNome = new JLabel();
+
+		lblSexo = new JLabel();
+		lblRg = new JLabel();
+		lblCpf = new JLabel();
+		lblTelefone = new JLabel();
 		lblDataNascimento = new JLabel();
-		lblCargo = new JLabel();
-		lblCidade = new JLabel();
-		lblEstado = new JLabel();
+		lblProfissao = new JLabel();
+		lblRamal = new JLabel();
+		lblSenha = new JLabel();
 		lblLogradouro = new JLabel();
 		lblNumero = new JLabel();
 		lblComplemento = new JLabel();
 		lblBairro = new JLabel();
 		lblCep = new JLabel();
-		lblCpf = new JLabel();
-		lblRg = new JLabel();
-		lblTelefone = new JLabel();
-		campoNome = new JTextField();
+		lblEstado = new JLabel();
+		lblCidade = new JLabel();
+
 		campoSalario = new JTextField();
+		campoCep = new JTextField();
+		campoBairro = new JTextField();
+		campoComplemento = new JTextField();
+		campoNumero = new JTextField();
+		campoRamal = new JTextField();
+
+		campoTelefone = new JTextField();
+		campoNome = new JTextField();
+
+		campoRg = new JTextField();
+		campoCpf = new JTextField();
 		campoDataNascimento = new JTextField();
 		campoLogradouro = new JTextField();
-		campoNumero = new JTextField();
-		campoComplemento = new JTextField();
-		campoBairro = new JTextField();
-		campoCep = new JTextField();
-		campoCpf = new JTextField();
-		campoRg = new JTextField();
-		campoTelefone = new JTextField();
-		cboxCargo = new JComboBox(cargo);
-		
-		CidadeController cidadeController = new CidadeController();
-		List<Cidade> cidades = cidadeController.listarTodos();
-		cboxCidade = new JComboBox(cidades.toArray());
-		
-		EstadoController estadoController = new EstadoController();
-		List<Estado> estados = estadoController.listarTodos();
-		cboxEstado = new JComboBox(estados.toArray());
-		
-		
-		painelDaJanela = (JPanel) janela.getContentPane();
 		painelDadosFuncionario = new JPanel();
 		painelLogradouro = new JPanel();
+		painelDaJanela = (JPanel) janela.getContentPane();
 
-		// Cria o botão Salvar
-		botaoSalvar.setBounds(170, 430, 100, 40);
-		// botaoSalvar.addActionListener(new SalvarListener());
+		EstadoController estadoController = new EstadoController();
+		List<Estado> listaEstado = estadoController.listarTodos();
+		cboxEstado = new JComboBox(listaEstado.toArray());
 
-		// Cria o botão Cancelar
-		botaoCancelar.setBounds(280, 430, 100, 40);
-		botaoCancelar.addActionListener(new CancelaListener());
+		CidadeController cidadeController = new CidadeController();
+		List<Cidade> listaCidade = cidadeController.listarTodos();
+		cboxCidade = new JComboBox(listaCidade.toArray());
 
-		// Configuração da label nome
-		lblNome.setText("Nome");
-		lblNome.setBounds(30, 30, 95, 20);
+		Profissao = new JComboBox(ProfissaoBox);
 
-		// Configuração da label cargo
-		lblCargo.setText("Cargo");
-		lblCargo.setBounds(385, 30, 95, 20);
+		lblMateria.setVisible(false);
 
-		// Configuração da label data nascimento
-		lblDataNascimento.setText("Dt. nascimento");
-		try {
-			javax.swing.text.MaskFormatter dt = new javax.swing.text.MaskFormatter("##/##/####");
-			campoDataNascimento = new javax.swing.JFormattedTextField(dt);
-		} catch (Exception e) {
-		}
-		lblDataNascimento.setBounds(200, 130, 95, 20);
+		// add no grupo de botoes os radio buton's
+		grpRadio.add(rbtNoturno);
+		grpRadio.add(rbtTarde);
 
-		// Configuração da label cpf
-		lblCpf.setText("CPF");
-		try {
-			javax.swing.text.MaskFormatter cpf = new javax.swing.text.MaskFormatter("###.###.###/##");
-			campoCpf = new javax.swing.JFormattedTextField(cpf);
-		} catch (Exception e) {
-		}
-		lblCpf.setBounds(200, 80, 95, 20);
+		// configura botoes na tela
+		rbtNoturno.setText("Noturno");
+		rbtNoturno.setBounds(570, 69, 100, 24);
 
-		// Configuração da label rg
-		lblRg.setText("RG");
-		try {
-			javax.swing.text.MaskFormatter rg = new javax.swing.text.MaskFormatter("##.###.###-#");
-			campoRg = new javax.swing.JFormattedTextField(rg);
-		} catch (Exception e) {
-		}
-		lblRg.setBounds(385, 80, 95, 20);
+		// Configuração do botão casado
+		rbtTarde.setText("Matutino");
+		rbtTarde.setBounds(570, 94, 100, 24);
 
-		// Configuração da label telefone
-		lblTelefone.setText("Telefone");
-		try {
-			javax.swing.text.MaskFormatter tel = new javax.swing.text.MaskFormatter("(##) ####-####");
-			campoTelefone = new javax.swing.JFormattedTextField(tel);
-		} catch (Exception e) {
-		}
-		lblTelefone.setBounds(30, 130, 95, 20);
+		// cria tabela
 
-		// Configuração da label salario
-		lblSalario.setText("Salario");
-		try {
-			javax.swing.text.MaskFormatter salrio = new javax.swing.text.MaskFormatter("#########");
-			campoSalario = new javax.swing.JFormattedTextField(salrio);
-		} catch (Exception e) {
-		}
-		lblSalario.setBounds(30, 80, 95, 20);
+		jtfMateria = new JTextField();
+		botaoIncluir = new JButton("Incluir");
+		botaoExcluir = new JButton("Excluir");
 
-		// Configuração da label logradouro
-		lblLogradouro.setText("Logradouro");
-		lblLogradouro.setBounds(30, 230, 95, 20);
+		DefaultTableModel modelo = new DefaultTableModel(dados, 0);
+		tabela = new JTable(modelo);
 
-		// Configuração da label numero
-		lblNumero.setText("Numero");
-		lblNumero.setBounds(30, 280, 95, 20);
+		tabela.setEnabled(true);
 
-		// Configuração da label complemento
-		lblComplemento.setText("Complemento");
-		lblComplemento.setBounds(200, 280, 95, 20);
+		// instaciando e inserido a tabela no scroll
+		painelDeScroll = new JScrollPane(tabela);
+		painelDeScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		// configuração painel do funcionario
+		painelDadosFuncionario.setBounds(5, 5, 755, 200);
+		painelDadosFuncionario.setLayout(new GridLayout(1, 0, 0, 0));
+		painelDadosFuncionario.setBorder(new TitledBorder("Dados do Funcionario"));
+		
+		// Configuração do painel do Logradouro
+		painelLogradouro.setBounds(5, 210, 755, 150);
+		painelLogradouro.setLayout(new GridLayout(1, 0, 0, 0));
+		painelLogradouro.setBorder(new TitledBorder("Dados do Logradouro"));
 
-		// Configuração da label bairro
-		lblBairro.setText("Bairro");
-		lblBairro.setBounds(385, 280, 95, 20);
+		// configurações do tamanho do componentes da tabela
+		painelDeScroll.setBounds(565, 65, 120, 70);
 
-		// Configuração da label cep
-		lblCep.setText("CEP");
+		tabela.setBounds(750, 30, 110, 38);
+		botaoIncluir.setBounds(565, 144, 74, 20);
+		botaoExcluir.setBounds(645, 144, 74, 20);
+
+		jtfMateria.setBounds(570, 44, 120, 20);
+		campoRamal.setBounds(570, 44, 120, 20);
+
+		// escondendo campos e label
+		lblTurno.setVisible(false);
+		rbtNoturno.setVisible(false);
+		rbtTarde.setVisible(false);
+
+		campoRamal.setVisible(false);
+		lblRamal.setVisible(false);
+		jtfMateria.setVisible(false);
+		tabela.setVisible(false);
+		painelDeScroll.setVisible(false);
+		botaoIncluir.setVisible(false);
+		botaoExcluir.setVisible(false);
+
+		// adiciona ação no botao
+		botaoIncluir.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				adicionaLinha();
+			}
+		});
+
+		botaoExcluir.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				excluirLinha();
+
+			}
+
+		});
+
+		// configuraçõe do painel da janela
+		painelDaJanela.setLayout(null);
+
+		// configuraçoes da label escolha
+		lblCidade.setText("Cidade :");
+		lblCidade.setBounds(500, 280, 90, 24);
+
+		lblEstado.setText("Estado :");
+		lblEstado.setBounds(500, 250, 90, 24);
+
+		lblBairro.setText("Bairro :");
+		lblBairro.setBounds(280, 310, 90, 24);
+
+		lblCep.setText("Cep :");
+		lblCep.setBounds(280, 285, 90, 24);
+
+		lblComplemento.setText("Complemento:");
+		lblComplemento.setBounds(10, 285, 90, 24);
+
+		lblNumero.setText("Numero :");
+		lblNumero.setBounds(10, 310, 80, 24);
+
+		lblDataNascimento.setText("Dt.nascimento :");
+		lblDataNascimento.setBounds(10, 119, 100, 24);
+
+		lblLogradouro.setText("Logradouro :");
+		lblLogradouro.setBounds(10, 250, 80, 24);
+
+		lblProfissao.setText("Profissão :");
+		lblProfissao.setBounds(280, 119, 90, 24);
+
+		lblMateria.setText("Materia :");
+		lblMateria.setBounds(500, 44, 90, 24);
+
+		lblTurno.setText("Escolha se turno :");
+		lblTurno.setBounds(570, 44, 120, 24);
+
+		lblRamal.setText("Ramal :");
+		lblRamal.setBounds(500, 44, 90, 24);
+
+		lblSalario.setText("Salario :");
+		lblSalario.setBounds(10, 94, 150, 20);
+
+		lblNome.setText("Nome :");
+		lblNome.setBounds(10, 44, 90, 24);
+
+		lblRg.setText("RG :");
+		lblRg.setBounds(10, 69, 90, 24);
+
+		lblCpf.setText("CPF :");
+		lblCpf.setBounds(280, 69, 50, 24);
+
+		lblSexo.setText("sexo:");
+		lblSexo.setBounds(7, 94, 90, 24);
+
+		lblTelefone.setText("Tel.:");
+		lblTelefone.setBounds(280, 94, 90, 24);
+
+		btnSalvar.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				String estadoS = cboxEstado.getSelectedItem().toString();
+
+				String cidadeS = cboxCidade.getSelectedItem().toString();
+
+				if (Profissao.getSelectedItem().equals("Professor")) {
+					ProfessorController ac = new ProfessorController();
+
+					ac.verificarSelecionado(campoNome.getText(), campoRg.getText(), campoCpf.getText(),
+							campoTelefone.getText(), campoDataNascimento.getText(), campoLogradouro.getText(),
+							campoNumero.getText(), campoComplemento.getText(), campoBairro.getText(),
+							campoCep.getText(), estadoS, cidadeS, tabela.getName(), campoSalario.getText());
+
+					campoBairro.setText(" ");
+					campoCep.setText(" ");
+					campoComplemento.setText(" ");
+					campoCpf.setText(" ");
+					campoDataNascimento.setText(" ");
+					campoLogradouro.setText(" ");
+					jtfMateria.setText(" ");
+					campoSalario.setText(" ");
+
+					campoNome.setText(" ");
+					campoNumero.setText(" ");
+					campoRg.setText(" ");
+
+					campoTelefone.setText(" ");
+				} else if (Profissao.getSelectedItem().equals("Secretaria")) {
+					SecretariaController ac = new SecretariaController();
+
+					ac.verificarSelecionado(campoNome.getText(), campoRg.getText(), campoCpf.getText(),
+							campoTelefone.getText(), campoDataNascimento.getText(), campoLogradouro.getText(),
+							campoNumero.getText(), campoComplemento.getText(), campoBairro.getText(),
+							campoCep.getText(), estadoS, cidadeS, campoRamal.getText(), campoSalario.getText());
+
+					campoBairro.setText("");
+					campoCep.setText("");
+					campoComplemento.setText("");
+					campoCpf.setText("");
+					campoDataNascimento.setText("");
+					campoLogradouro.setText("");
+					campoSalario.setText("");
+					campoNome.setText("");
+					campoNumero.setText("");
+					campoRg.setText("");
+					campoRamal.setText("");
+					campoTelefone.setText("");
+				} else if (Profissao.getSelectedItem().equals("Faxineira")) {
+					String turno = " ";
+
+					if (rbtNoturno.isSelected()) {
+						turno = "Turno noturno ";
+					}
+
+					if (rbtTarde.isSelected()) {
+						turno = "Turno matutino";
+					}
+
+					FaxineiraController ac = new FaxineiraController();
+
+					ac.verificarSelecionado(campoNome.getText(), campoRg.getText(), campoCpf.getText(),
+							campoTelefone.getText(), campoDataNascimento.getText(), campoLogradouro.getText(),
+							campoNumero.getText(), campoComplemento.getText(), campoBairro.getText(),
+							campoCep.getText(), estadoS, cidadeS, turno, campoSalario.getText());
+
+					campoBairro.setText("");
+					campoCep.setText("");
+					campoComplemento.setText("");
+					campoCpf.setText("");
+					campoDataNascimento.setText("");
+					campoLogradouro.setText("");
+					campoSalario.setText("");
+					campoNome.setText("");
+					campoNumero.setText("");
+					campoRg.setText("");
+					campoTelefone.setText("");
+				}
+			}
+		});
+
+		btnSalvar.setText("Salvar");
+
+		btnSalvar.setBounds(310, 400, 85, 30);
+
+		btnCancelar.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+//				campoBairro.setText("");
+//				campoCep.setText("");
+//				campoComplemento.setText("");
+//				campoCpf.setText("");
+//				campoDataNascimento.setText("");
+//				campoLogradouro.setText("");
+//				campoNome.setText("");
+//				campoNumero.setText("");
+//				campoRg.setText("");
+//				campoSalario.setText("");
+//				campoTelefone.setText("");
+				janela.dispose();
+			}
+		});
+		btnSalvarProfissao.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				if (Profissao.getSelectedItem().equals("Professor")) {
+					lblMateria.setVisible(true);
+
+					painelDeScroll.setVisible(true);
+					tabela.setVisible(true);
+
+					botaoIncluir.setVisible(true);
+					botaoExcluir.setVisible(true);
+					lblRamal.setVisible(false);
+					jtfMateria.setVisible(true);
+					campoRamal.setVisible(false);
+
+					lblTurno.setVisible(false);
+					rbtNoturno.setVisible(false);
+					rbtTarde.setVisible(false);
+
+				}
+				if (Profissao.getSelectedItem().equals("Faxineira")) {
+					lblMateria.setVisible(false);
+					painelDeScroll.setVisible(false);
+					tabela.setVisible(false);
+					botaoIncluir.setVisible(false);
+					botaoExcluir.setVisible(false);
+					jtfMateria.setVisible(false);
+					lblRamal.setVisible(false);
+					campoRamal.setVisible(false);
+
+					lblTurno.setVisible(true);
+					rbtNoturno.setVisible(true);
+					rbtTarde.setVisible(true);
+				}
+
+				if (Profissao.getSelectedItem().equals("Secretaria")) {
+					lblRamal.setVisible(true);
+					lblMateria.setVisible(false);
+					painelDeScroll.setVisible(false);
+					tabela.setVisible(false);
+					botaoIncluir.setVisible(false);
+					botaoExcluir.setVisible(false);
+					jtfMateria.setVisible(false);
+					campoRamal.setVisible(true);
+					lblTurno.setVisible(false);
+					rbtNoturno.setVisible(false);
+					rbtTarde.setVisible(false);
+				}
+			}
+		});
+
+		btnSalvarProfissao.setBounds(360,144, 120, 20);
+
+		btnCancelar.setText("Cancelar");
+		btnCancelar.setBounds(400, 400, 85, 30);
+
+		// configuraçoes do combo box
+		Profissao.setSelectedIndex(-1);
+		cboxEstado.setSelectedIndex(-1);
+		cboxEstado.setBounds(560, 250, 150, 20);
+		cboxEstado.setMaximumRowCount(100);
+
+		cboxCidade.setSelectedIndex(-1);
+		cboxCidade.setBounds(560, 280, 150, 20);
+		cboxCidade.setMaximumRowCount(100);
+
+		// configura campo
+		campoBairro.setBounds(330, 310, 150, 20);
+		campoComplemento.setBounds(110, 285, 150, 20);
+		campoLogradouro.setBounds(110, 250, 370, 20);
+		campoNumero.setBounds(110, 310, 150, 20);
 		try {
 			javax.swing.text.MaskFormatter dt = new javax.swing.text.MaskFormatter("#####-###");
 			campoCep = new javax.swing.JFormattedTextField(dt);
 		} catch (Exception e) {
 		}
-		lblCep.setBounds(30, 330, 95, 20);
+		campoCep.setBounds(330, 285, 150, 20);
 
-		// Configuração da label cidade
-		lblCidade.setText("Cidade");
-		lblCidade.setBounds(200, 330, 95, 20);
+		try {
+			javax.swing.text.MaskFormatter dt = new javax.swing.text.MaskFormatter("##/##/####");
+			campoDataNascimento = new javax.swing.JFormattedTextField(dt);
+		} catch (Exception e) {
+		}
+		campoDataNascimento.setBounds(110, 119, 150, 20);
+		try {
+			javax.swing.text.MaskFormatter dt = new javax.swing.text.MaskFormatter("##.###.###-#");
+			campoRg = new javax.swing.JFormattedTextField(dt);
+		} catch (Exception e) {
+		}
+		campoRg.setBounds(110, 69, 150, 20);
 
-		// Configuração da label estado
-		lblEstado.setText("Estado");
-		lblEstado.setBounds(385, 330, 95, 20);
+		try {
+			javax.swing.text.MaskFormatter dt = new javax.swing.text.MaskFormatter("(##) #####-####");
+			campoTelefone = new javax.swing.JFormattedTextField(dt);
+		} catch (Exception e) {
+		}
+		campoTelefone.setBounds(330, 94, 150, 20);
 
-		// Cria um campo para digitar texto
-		campoNome.setBounds(30, 50, 330, 20);
-		campoDataNascimento.setBounds(200, 150, 165, 20);
-		campoCpf.setBounds(200, 100, 165, 20);
-		campoRg.setBounds(385, 100, 165, 20);
-		campoTelefone.setBounds(30, 150, 150, 20);
-		campoSalario.setBounds(30, 100, 150, 20);
-		campoLogradouro.setBounds(30, 250, 520, 20);
-		campoNumero.setBounds(30, 300, 150, 20);
-		campoComplemento.setBounds(200, 300, 165, 20);
-		campoBairro.setBounds(385, 300, 165, 20);
-		campoCep.setBounds(30, 350, 150, 20);
+		try {
+			javax.swing.text.MaskFormatter dt = new javax.swing.text.MaskFormatter("###.###.###/##");
+			campoCpf = new javax.swing.JFormattedTextField(dt);
+		} catch (Exception e) {
+		}
+		campoCpf.setBounds(330, 69, 150, 20);
 
-		// Configurações do combo box cargo
-		cboxCargo.setSelectedIndex(-1);
-		cboxCargo.setBounds(385, 50, 165, 19);
-		cboxCargo.setMaximumRowCount(10);
-		cboxCargo.addActionListener(new MudarCargo());
+		Profissao.setBounds(360, 119, 120, 20);
 
-		// Configurações do combo box cidade
-		cboxCidade.setSelectedIndex(-1);
-		cboxCidade.setBounds(200, 350, 165, 19);
-		cboxCidade.setMaximumRowCount(10);
+		campoNome.setBounds(110, 44, 370, 20);
 
-		// Configurações do combo box estado
-		cboxEstado.setSelectedIndex(-1);
-		cboxEstado.setBounds(385, 350, 165, 19);
-		cboxEstado.setMaximumRowCount(10);
+		try {
+			javax.swing.text.MaskFormatter dt = new javax.swing.text.MaskFormatter("########");
+			campoSalario = new javax.swing.JFormattedTextField(dt);
+		} catch (Exception e) {
+		}
+		campoSalario.setBounds(110, 94, 150, 20);
 
-		inciaGuiMateria();
-
-		// Configuração do painel do funcionario
-		painelDadosFuncionario.setBounds(5, 5, 555, 200);
-		painelDadosFuncionario.setLayout(new GridLayout(1, 0, 0, 0));
-		painelDadosFuncionario.setBorder(new TitledBorder("Dados do Funcionario"));
-
-		// Configuração do painel do Logradouro
-		painelLogradouro.setBounds(5, 210, 555, 200);
-		painelLogradouro.setLayout(new GridLayout(1, 0, 0, 0));
-		painelLogradouro.setBorder(new TitledBorder("Dados do Logradouro"));
-
-		// Configurações do painel da tela
+		// configuracoes do painel da tela
 		painelDaJanela.setLayout(null);
 		painelDaJanela.setBorder(BorderFactory.createLoweredBevelBorder());
-		painelDaJanela.add(botaoSalvar);
-		painelDaJanela.add(botaoCancelar);
-		painelDaJanela.add(campoNome);
-		painelDaJanela.add(campoSalario);
-		painelDaJanela.add(campoDataNascimento);
-		painelDaJanela.add(campoLogradouro);
-		painelDaJanela.add(campoNumero);
-		painelDaJanela.add(campoComplemento);
-		painelDaJanela.add(campoBairro);
-		painelDaJanela.add(campoCep);
-		painelDaJanela.add(campoCpf);
-		painelDaJanela.add(campoRg);
-		painelDaJanela.add(campoTelefone);
-		painelDaJanela.add(cboxCargo);
-		painelDaJanela.add(cboxEstado);
-		painelDaJanela.add(cboxCidade);
+
+		painelDaJanela.add(lblTurno);
 		painelDaJanela.add(lblNome);
-		painelDaJanela.add(lblCargo);
-		painelDaJanela.add(lblSalario);
+
+		painelDaJanela.add(rbtNoturno);
+		painelDaJanela.add(rbtTarde);
+		painelDaJanela.add(lblRamal);
+		painelDaJanela.add(lblTelefone);
+		painelDaJanela.add(lblRg);
+		painelDaJanela.add(lblCpf);
 		painelDaJanela.add(lblDataNascimento);
+		painelDaJanela.add(lblSenha);
 		painelDaJanela.add(lblLogradouro);
 		painelDaJanela.add(lblNumero);
 		painelDaJanela.add(lblComplemento);
 		painelDaJanela.add(lblBairro);
 		painelDaJanela.add(lblCep);
-		painelDaJanela.add(lblCpf);
-		painelDaJanela.add(lblRg);
-		painelDaJanela.add(lblTelefone);
-		painelDaJanela.add(lblCidade);
 		painelDaJanela.add(lblEstado);
+		painelDaJanela.add(lblCidade);
+		painelDaJanela.add(lblSalario);
+		painelDaJanela.add(lblProfissao);
+		painelDaJanela.add(lblMateria);
+
+		painelDaJanela.add(btnSalvarProfissao);
+		painelDaJanela.add(btnSalvar);
+		painelDaJanela.add(btnCancelar);
+
+		painelDaJanela.add(cboxEstado);
+		painelDaJanela.add(cboxCidade);
+
+		painelDaJanela.add(Profissao);
+		painelDaJanela.add(campoSalario);
+		painelDaJanela.add(campoCep);
+		painelDaJanela.add(campoRamal);
+		painelDaJanela.add(campoBairro);
+		painelDaJanela.add(campoComplemento);
+		painelDaJanela.add(campoNumero);
+		painelDaJanela.add(campoTelefone);
+		painelDaJanela.add(campoLogradouro);
+		painelDaJanela.add(campoNome);
+		painelDaJanela.add(campoRg);
+		painelDaJanela.add(campoCpf);
 		painelDaJanela.add(painelDadosFuncionario);
 		painelDaJanela.add(painelLogradouro);
 
-		// Cria a janela
-		janela.setTitle("Cadastro de Funcionario");
-		janela.setSize(580, 530);
-		janela.setLayout(null);
-		janela.setLocationRelativeTo(null);
+		painelDaJanela.add(jtfMateria);
+		painelDaJanela.add(campoDataNascimento);
+		painelDadosFuncionario.setLayout(null);
+		painelDadosFuncionario.add(painelDeScroll);
+		painelDaJanela.add(botaoIncluir);
+		painelDaJanela.add(botaoExcluir);
+
+		// configutacoes da janela
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		janela.setSize(800, 500);
 		janela.setVisible(true);
+		janela.setLocationRelativeTo(null);
 
 	}
 
-	public void inciaGuiMateria() {
-		lblMateria = new JLabel();
-		campoMateria = new JTextField();
-		botaoSalvarMateria = new JButton();
-		botaoExcluirMateria = new JButton();
-		scrollMateria = new JScrollPane();
+	public void adicionaLinha() {
+		if (jtfMateria.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Campo UF e Estado obrigatorio");
+		} else {
+			// Obter o modelo da tabela criada
+			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+			// adicionar nova linha com os dados
+			modelo.addRow(new String[] { jtfMateria.getText() });
 
-		// Configuração da label materia
-		lblMateria.setText("Materia");
-		lblMateria.setBounds(385, 130, 95, 20);
-		// Configuração da campo materia
-		campoMateria.setBounds(385, 150, 95, 20);
-		// Configuração da botao salvar materia
-		botaoSalvarMateria.setText("I");
-		botaoSalvarMateria.setBounds(400, 150, 20, 20);
-		// Configuração da botao EXCLUIR materia
-		botaoExcluirMateria.setText("E");
-		botaoExcluirMateria.setBounds(450, 150, 20, 20);
-
-		painelDaJanela.add(lblMateria);
-		painelDaJanela.add(campoMateria);
-		painelDaJanela.add(botaoSalvarMateria);
-		
-
-	}
-
-	// Metdo que mostra materia do professor
-	public void mostraMateriaDoProfessor() {
-		limpaPainelDeCadaCargo();
-		System.out.println("Mostando materias");
-	}
-
-	// Metdo que mostra ramal da secretaria
-	public void mostraRamalDaSecretaria() {
-		limpaPainelDeCadaCargo();
-		System.out.println("Mostando ramal");
-	}
-
-	// Metdo que mostra turno da faxineira
-	public void mostraTurnoDaFaxineira() {
-		limpaPainelDeCadaCargo();
-		System.out.println("Mostando turno");
-	}
-
-	// Metdo que limpa painel de cada cargo
-	public void limpaPainelDeCadaCargo() {
-		System.out.println("Limpando materia");
-		System.out.println("Limpando ramal");
-		System.out.println("Limpando turno");
-	}
-
-	// Função do botão cancelar
-	public class CancelaListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			System.exit(0);
+			jtfMateria.setText("");
+			JOptionPane.showMessageDialog(null, "Dados incluidos com sucesso!");
 		}
 	}
 
-	// Função do mudar cargo
-	public class MudarCargo implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			if (cboxCargo.getSelectedItem().toString() == "1 - Professor") {
-				mostraMateriaDoProfessor();
-			}
-
-			if (cboxCargo.getSelectedItem().toString() == "2 - Secretaria") {
-				mostraRamalDaSecretaria();
-			}
-
-			if (cboxCargo.getSelectedItem().toString() == "3 - Faxineira") {
-				mostraTurnoDaFaxineira();
-			}
-			System.out.println(cboxCargo.getSelectedItem().toString());
+	public void excluirLinha() {
+		if (tabela.getSelectedRow() == -1) {
+			JOptionPane.showMessageDialog(null, "Selecione uma linha");
+		} else if (tabela.getSelectedRowCount() > 1) {
+			JOptionPane.showMessageDialog(null, "Selecione apenas uma linha");
+		} else {
+			// obter o modelo da tabela criada
+			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+			modelo.removeRow(tabela.getSelectedRow());
+			JOptionPane.showMessageDialog(null, "Excluido com sucesso");
 		}
+
 	}
+
 }

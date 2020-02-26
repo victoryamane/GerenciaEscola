@@ -72,7 +72,7 @@ public class CidadeView {
 	// Função do botão cancelar
 	public class CancelaListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			System.exit(0);
+			janela.dispose();
 		}
 	}
 }

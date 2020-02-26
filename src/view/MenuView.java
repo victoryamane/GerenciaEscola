@@ -72,7 +72,7 @@ public class MenuView {
 				new FuncionarioView().iniciaGui();
 			}
 		});
-		
+
 		// Configurando ação do item de menu 3
 		itemMenu3.addActionListener(new ActionListener() {
 
@@ -81,7 +81,7 @@ public class MenuView {
 				new EstadoView().iniciaGui();
 			}
 		});
-		
+
 		// Configurando ação do item de menu 4
 		itemMenu4.addActionListener(new ActionListener() {
 
@@ -90,7 +90,7 @@ public class MenuView {
 				new CidadeView().iniciaGui();
 			}
 		});
-		
+
 		// Configurando ação do item de menu 5
 		itemMenu5.addActionListener(new ActionListener() {
 
@@ -100,6 +100,14 @@ public class MenuView {
 			}
 		});
 
+		// Configurando ação do item de menu 6
+		itemMenu6.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				new RelatorioFuncionarioView().iniciaGui();
+
+			}
+		});
 
 		// Configurações do painel da tela
 		painelDaJanela.setLayout(null);

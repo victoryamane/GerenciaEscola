@@ -70,7 +70,7 @@ public class CidadeController {
 			}
 			leitor.close();
 		} catch (FileNotFoundException e) {
-			JOptionPane.showMessageDialog(null, "Arquio não encotrado");
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

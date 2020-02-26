@@ -19,7 +19,6 @@ import java.awt.GridLayout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.LineNumberInputStream;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -363,7 +362,7 @@ public class AlunoView {
 // Função do botão cancelar
 	public class CancelaListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			System.exit(0);
+			janela.dispose();
 		}
 	}
 }

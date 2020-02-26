@@ -136,7 +136,7 @@ public class AlunoController {
 			}
 			leitor.close();
 		} catch (FileNotFoundException e) {
-			JOptionPane.showMessageDialog(null, "Arquio não encotrado");
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
